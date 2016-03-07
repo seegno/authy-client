@@ -1,0 +1,4 @@
+sut:
+  image: seegno/node:4-test
+  volumes:
+    - .:/app

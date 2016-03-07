@@ -1,0 +1,84 @@
+{
+  "name": "authy-client",
+  "version": "1.0.0",
+  "description": "A complete Authy client with support for TOTP, OneTouch, Phone Verification and Phone Intelligence APIs",
+  "author": {
+    "name": "Rui Marinho",
+    "email": "rui.marinho@seegno.com",
+    "url": "http://seegno.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/seegno/authy-client",
+  "bugs": "https://github.com/seegno/authy-client/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seegno/authy-client.git"
+  },
+  "main": "dist/src/index.js",
+  "keywords": [
+    "2 factor",
+    "2fa",
+    "2step",
+    "auth",
+    "authentication",
+    "authy",
+    "client",
+    "co",
+    "two factor",
+    "two step",
+    "two-factor"
+  ],
+  "options": {
+    "mocha": "--compilers js:babel-register --recursive --require should"
+  },
+  "scripts": {
+    "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
+    "cover": "babel-node node_modules/.bin/isparta cover --report html _mocha -- $npm_package_options_mocha",
+    "lint": "eslint src test && jscs src test",
+    "prepublish": "npm run transpile",
+    "testdocker": "docker-compose run --rm sut",
+    "test": "NODE_ENV=test mocha $npm_package_options_mocha",
+    "transpile": "rm -rf dist/* && babel src --out-dir dist/src && babel test --out-dir dist/test && cp package.json dist/",
+    "version": "npm run changelog --future-release=$npm_package_version && npm run transpile && git add -A CHANGELOG.md dist"
+  },
+  "dependencies": {
+    "bluebird": "^3.1.1",
+    "debugnyan": "0.0.2",
+    "google-libphonenumber": "^1.0.14",
+    "lodash": "^4.0.0",
+    "qs": "^6.1.0",
+    "request": "^2.53.0",
+    "request-debug": "^0.2.0",
+    "standard-http-error": "^2.0.0",
+    "urijs": "^1.17.0",
+    "url-escape-tag": "^1.0.0",
+    "validator": "^5.1.0",
+    "validator.js": "^1.2.3",
+    "validator.js-asserts": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.4.0",
+    "babel-eslint": "^6.0.0",
+    "babel-plugin-transform-async-to-module-method": "^6.5.2",
+    "babel-preset-es2015-node4": "^2.0.2",
+    "babel-preset-stage-1": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "eslint": "^2.5.3",
+    "eslint-config-seegno": "^3.1.0",
+    "eslint-plugin-babel": "^3.0.0",
+    "isparta": "^4.0.0",
+    "jscs": "^2.7.0",
+    "jscs-config-seegno": "^1.0.0",
+    "mocha": "^2.3.4",
+    "nock": "^7.0.2",
+    "pre-commit": "^1.1.2",
+    "should": "^8.0.0",
+    "sinon": "^1.17.2"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "engines": {
+    "node": ">=4"
+  }
+}

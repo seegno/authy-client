@@ -1,0 +1,13 @@
+{
+  "env": {
+    "test": {
+      "plugins": [
+        ["transform-async-to-module-method", {
+          "module": "bluebird",
+          "method": "coroutine"
+        }]
+      ]
+    }
+  },
+  "presets": ["es2015-node4", "stage-1"]
+}
