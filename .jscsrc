@@ -1,10 +1,5 @@
-disallowDanglingUnderscores: false
-
-plugins:
-  - jscs-config-seegno
-
 preset: seegno
 
-requireCamelCaseOrUpperCaseIdentifiers: false
+disallowDanglingUnderscores: false
 
-requireSqlTemplateInQueryFunction: false
+requireCamelCaseOrUpperCaseIdentifiers: false

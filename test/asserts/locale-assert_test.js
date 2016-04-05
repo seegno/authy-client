@@ -4,10 +4,10 @@
  */
 
 import Locale from '../../src/asserts/locale-assert';
-import should from 'should';
-import { Assert as BaseAssert, Violation } from 'validator.js';
 import { locale } from '../../src/enums';
+import should from 'should';
 import { values } from 'lodash';
+import { Assert as BaseAssert, Violation } from 'validator.js';
 
 /**
  * Extend Assert with `Locale`.

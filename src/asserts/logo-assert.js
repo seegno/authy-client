@@ -4,8 +4,8 @@
  */
 
 import * as asserts from 'validator.js-asserts';
-import { Assert as BaseAssert, Violation } from 'validator.js';
 import { resolution } from '../enums';
+import { Assert as BaseAssert, Violation } from 'validator.js';
 import { pick, values } from 'lodash';
 
 /**

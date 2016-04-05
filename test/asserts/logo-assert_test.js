@@ -4,10 +4,10 @@
  */
 
 import Logo from '../../src/asserts/logo-assert';
-import should from 'should';
-import { Assert as BaseAssert, Violation } from 'validator.js';
 import { resolution } from '../../src/enums';
+import should from 'should';
 import { values } from 'lodash';
+import { Assert as BaseAssert, Violation } from 'validator.js';
 
 /**
  * Extend Assert with `Logo`.

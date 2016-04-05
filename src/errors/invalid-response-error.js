@@ -15,6 +15,6 @@ import HttpError from './http-error';
 
 export default class InvalidResponseError extends HttpError {
   constructor({ ...rest }) {
-    super({ code: 400, ...rest });
+    super({ code: 500, ...rest });
   }
 }

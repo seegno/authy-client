@@ -1,7 +1,6 @@
 extends: seegno
 
 rules:
-  complexity: 0
   id-length: 0
   no-bitwise: 0
   no-new: 0

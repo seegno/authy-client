@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-import InvalidRequestError from '../../src/errors/invalid-request-error';
+import HttpError from '../../src/errors/http-error';
 import ValidationFailedError from '../../src/errors/validation-failed-error';
 
 /**
@@ -11,10 +11,10 @@ import ValidationFailedError from '../../src/errors/validation-failed-error';
  */
 
 describe('ValidationFailedError', () => {
-  it('should inherit from `InvalidRequestError`', () => {
+  it('should inherit from `HttpError`', () => {
     const error = new ValidationFailedError();
 
-    error.should.be.instanceOf(InvalidRequestError);
+    error.should.be.instanceOf(HttpError);
   });
 
   it('should have default `code`', () => {
@@ -30,7 +30,7 @@ describe('ValidationFailedError', () => {
   });
 
   it('should accept `errors`', () => {
-    const error = new ValidationFailedError({ errors: { foo: 'bar' } });
+    const error = new ValidationFailedError({ properties: { errors: { foo: 'bar' } } });
 
     error.errors.foo.should.equal('bar');
   });

@@ -3,15 +3,15 @@
  * Module dependencies.
  */
 
-import _ from 'lodash';
 import Promise from 'bluebird';
+import _ from 'lodash';
 import debugnyan from './logging/debugnyan';
 import esc from 'url-escape-tag';
 import manifest from '../package';
 import parsePhone from './parsers/phone-parser';
 import parseResponse from './parsers/response-parser';
 import request from 'request';
-import { Assert, validate, validateResponse } from './validator';
+import { Assert, validateRequest, validateResponse } from './validator';
 
 /**
  * Instances.
@@ -42,7 +42,7 @@ function source(...args) {
 
 export default class Client {
   constructor({ key } = {}, { host = 'https://api.authy.com', timeout = 5000 } = {}) {
-    validate({ host, key, timeout }, {
+    validateRequest({ host, key, timeout }, {
       host: [new Assert().IsString(), new Assert().Choice(['https://api.authy.com', 'https://sandbox-api.authy.com'])],
       key: [new Assert().Required(), new Assert().NotBlank()],
       timeout: [new Assert().Integer(), new Assert().GreaterThanOrEqual(0)]
@@ -82,7 +82,7 @@ export default class Client {
     return Promise.try(() => {
       const [[{ authyId, details = {}, logos, message } = {}, { ttl } = {}], callback] = source(...args);
 
-      validate({ authyId, details, logos, message, ttl }, {
+      validateRequest({ authyId, details, logos, message, ttl }, {
         authyId: [new Assert().Required(), new Assert().AuthyId()],
         details: {
           hidden: new Assert().PlainObject(),
@@ -127,7 +127,7 @@ export default class Client {
 
       log.debug({ authyId }, `Deleting user ${authyId}`);
 
-      validate({ authyId, ip }, {
+      validateRequest({ authyId, ip }, {
         authyId: [new Assert().Required(), new Assert().AuthyId()],
         ip: new Assert().Ip()
       });
@@ -159,7 +159,7 @@ export default class Client {
 
       log.debug('Retrieving application details');
 
-      validate({ ip }, { ip: new Assert().Ip() });
+      validateRequest({ ip }, { ip: new Assert().Ip() });
 
       return this.rpc.getAsync({
         qs: _.pickBy({
@@ -237,7 +237,7 @@ export default class Client {
 
       log.debug('Retrieving application statistics');
 
-      validate({ ip }, { ip: new Assert().Ip() });
+      validateRequest({ ip }, { ip: new Assert().Ip() });
 
       return this.rpc.getAsync({
         qs: _.pickBy({
@@ -264,7 +264,7 @@ export default class Client {
     return Promise.try(() => {
       const [[{ countryCode: countryOrCallingCode, phone } = {}, { ip } = {}], callback] = source(...args);
 
-      validate({ countryCode: countryOrCallingCode, ip, phone }, {
+      validateRequest({ countryCode: countryOrCallingCode, ip, phone }, {
         countryCode: [new Assert().Required(), new Assert().CountryOrCallingCode()],
         ip: new Assert().Ip(),
         phone: [new Assert().Required(), new Assert().Phone(countryOrCallingCode)]
@@ -304,7 +304,7 @@ export default class Client {
 
       log.debug({ authyId }, `Retrieving user ${authyId} status`);
 
-      validate({ authyId, ip }, {
+      validateRequest({ authyId, ip }, {
         authyId: [new Assert().Required(), new Assert().AuthyId()],
         ip: new Assert().Ip()
       });
@@ -345,7 +345,7 @@ export default class Client {
 
       log.debug(`Registering activity for user ${authyId}`);
 
-      validate({ authyId, data, ip, type }, {
+      validateRequest({ authyId, data, ip, type }, {
         authyId: [new Assert().Required(), new Assert().AuthyId()],
         data: [new Assert().Required(), new Assert().PlainObject()],
         ip: [new Assert().Required(), new Assert().Ip()],
@@ -383,7 +383,7 @@ export default class Client {
 
       log.debug(`Requesting call for user ${authyId}`);
 
-      validate({ action, authyId, force, message }, {
+      validateRequest({ action, authyId, force, message }, {
         action: [new Assert().IsString(), new Assert().Length({ max: 255, min: 1 })],
         authyId: [new Assert().Required(), new Assert().AuthyId()],
         force: new Assert().Boolean(),
@@ -424,7 +424,7 @@ export default class Client {
 
       log.debug(`Requesting sms for user ${authyId}`);
 
-      validate({ action, authyId, force, message }, {
+      validateRequest({ action, authyId, force, message }, {
         action: [new Assert().IsString(), new Assert().Length({ max: 255, min: 1 })],
         authyId: [new Assert().Required(), new Assert().AuthyId()],
         force: new Assert().Boolean(),
@@ -464,7 +464,7 @@ export default class Client {
 
       log.debug(`Registering user with email ${email} and phone ${phone} (${countryOrCallingCode})`);
 
-      validate({ countryCode: countryOrCallingCode, email, phone }, {
+      validateRequest({ countryCode: countryOrCallingCode, email, phone }, {
         countryCode: [new Assert().Required(), new Assert().CountryOrCallingCode()],
         email: [new Assert().Required(), new Assert().Email()],
         phone: [new Assert().Required(), new Assert().Phone(countryOrCallingCode)]
@@ -506,7 +506,7 @@ export default class Client {
 
       log.debug(`Verifying token ${token} for user ${authyId}`);
 
-      validate({ authyId, force, token }, {
+      validateRequest({ authyId, force, token }, {
         authyId: [new Assert().Required(), new Assert().AuthyId()],
         force: new Assert().Boolean(),
         token: [new Assert().Required(), new Assert().TotpToken()]
@@ -538,7 +538,7 @@ export default class Client {
     return Promise.try(() => {
       const [[{ countryCode: countryOrCallingCode, phone, via } = {}, { locale } = {}], callback] = source(...args);
 
-      validate({ countryCode: countryOrCallingCode, phone, via }, {
+      validateRequest({ countryCode: countryOrCallingCode, phone, via }, {
         countryCode: [new Assert().Required(), new Assert().CountryOrCallingCode()],
         locale: new Assert().Locale(),
         phone: [new Assert().Required(), new Assert().Phone(countryOrCallingCode)],
@@ -580,7 +580,7 @@ export default class Client {
     const [[request = {}], callback] = source(...args);
 
     return Promise.try(() => {
-      validate(request, {
+      validateRequest(request, {
         body: {
           approval_request: [new Assert().Required(), new Assert().Callback(value => {
             return new Assert().IsString().check(value) === true || new Assert().PlainObject().check(value) === true;
@@ -613,7 +613,7 @@ export default class Client {
     return Promise.try(() => {
       const [[{ countryCode: countryOrCallingCode, phone, token } = {}], callback] = source(...args);
 
-      validate({ countryCode: countryOrCallingCode, phone, token }, {
+      validateRequest({ countryCode: countryOrCallingCode, phone, token }, {
         countryCode: [new Assert().Required(), new Assert().CountryOrCallingCode()],
         phone: [new Assert().Required(), new Assert().Phone(countryOrCallingCode)],
         token: [new Assert().Required(), new Assert().Integer()]

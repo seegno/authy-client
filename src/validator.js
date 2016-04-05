@@ -3,12 +3,12 @@
  * Module dependencies.
  */
 
-import _ from 'lodash';
 import * as customAsserts from './asserts';
+import _ from 'lodash';
 import debugnyan from './logging/debugnyan';
 import extraAsserts from 'validator.js-asserts';
 import { Assert as BaseAssert, Constraint, Validator } from 'validator.js';
-import { InvalidResponseError, ValidationFailedError} from './errors';
+import { InvalidResponseError, ValidationFailedError } from './errors';
 
 /**
  * Instances.
@@ -19,35 +19,37 @@ const validator = new Validator();
 const logger = debugnyan('authy:validator');
 
 /**
+ * Export `Assert`.
+ */
+
+export const Assert = BaseAssert.extend(asserts);
+
+/**
  * Validate data using constraints.
  */
 
-export function validate(data, constraints) {
+export function validate(data, constraints, { ErrorClass = ValidationFailedError } = {}) {
   const errors = validator.validate(data, new Constraint(constraints, { deepRequired: true }));
 
   if (errors !== true) {
     logger.warn({ errors }, 'Validation failed');
 
-    throw new ValidationFailedError({ errors });
+    throw new ErrorClass({ properties: { data, errors } });
   }
+}
+
+/**
+ * Validate request using constraints.
+ */
+
+export function validateRequest(data, constraints) {
+  return validate(data, constraints, { ErrorClass: ValidationFailedError });
 }
 
 /**
  * Validate response using constraints.
  */
 
-export function validateResponse(body, constraints) {
-  const errors = validator.validate(body, new Constraint(constraints, { deepRequired: true }));
-
-  if (errors !== true) {
-    logger.warn({ errors }, 'Response validation failed');
-
-    throw new InvalidResponseError({ properties: { body, errors } });
-  }
+export function validateResponse(data, constraints) {
+  return validate(data, constraints, { ErrorClass: InvalidResponseError });
 }
-
-/**
- * Export `Assert`.
- */
-
-export const Assert = BaseAssert.extend(asserts);

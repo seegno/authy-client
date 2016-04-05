@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-import nock from 'nock';
 import { defaults } from 'lodash';
+import nock from 'nock';
 
 /**
  * Mock a POST request to start a phone verification.

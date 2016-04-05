@@ -3,9 +3,9 @@
  * Module dependencies.
  */
 
+import { defaults } from 'lodash';
 import nock from 'nock';
 import uuid from '../utils/uuid';
-import { defaults } from 'lodash';
 
 /**
  * Mock a GET request to retrieve the status of an approval request.

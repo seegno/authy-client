@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-import nock from 'nock';
 import { defaults } from 'lodash';
+import nock from 'nock';
 
 /**
  * Mock a GET request to verify a token.

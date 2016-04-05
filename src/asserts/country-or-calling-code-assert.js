@@ -3,10 +3,10 @@
  * Module dependencies.
  */
 
-import debugnyan from '../logging/debugnyan';
 import { PhoneNumberUtil } from 'google-libphonenumber';
 import { Violation } from 'validator.js';
-import { isString, isNumber } from 'lodash';
+import debugnyan from '../logging/debugnyan';
+import { isNumber, isString } from 'lodash';
 
 /**
  * Instances.

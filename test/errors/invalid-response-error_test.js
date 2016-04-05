@@ -20,13 +20,13 @@ describe('InvalidResponseError', () => {
   it('should have default `code`', () => {
     const error = new InvalidResponseError();
 
-    error.code.should.equal(400);
+    error.code.should.equal(500);
   });
 
   it('should have default `message`', () => {
     const error = new InvalidResponseError();
 
-    error.message.should.equal('Bad Request');
+    error.message.should.equal('Internal Server Error');
   });
 
   it('should accept a `message`', () => {

@@ -4,10 +4,6 @@
  */
 
 import HttpError from '../../src/errors/http-error';
-import InvalidRequestError from '../../src/errors/invalid-request-error';
-import NotFoundError from '../../src/errors/not-found-error';
-import ServiceUnavailableError from '../../src/errors/service-unavailable-error';
-import UnauthorizedAccessError from '../../src/errors/unauthorized-access-error';
 import parse from '../../src/parsers/response-parser';
 import should from 'should';
 
@@ -17,108 +13,28 @@ import should from 'should';
 
 describe('ResponseParser', () => {
   describe('parse()', () => {
-    const id = 0;
+    it('should throw an error if the status code is not 500', () => {
+      const body = {
+        errors: {
+          message: 'User has been suspended.'
+        },
+        message: 'User has been suspended.',
+        success: false
+      };
 
-    describe('status code 503', () => {
-      const statusCode = 503;
+      try {
+        parse([{ statusCode: 503 }, body]);
 
-      it('should throw an `ServiceUnavailableError`', () => {
-        const body = {
-          errors: {
-            message: 'User has been suspended.'
-          },
-          message: 'User has been suspended.',
-          success: false
-        };
-
-        try {
-          parse([{ request: { _debugId: id }, statusCode }, body]);
-
-          should.fail();
-        } catch (e) {
-          e.body.should.eql(body);
-          e.message.should.equal(body.message);
-          e.should.be.instanceOf(ServiceUnavailableError);
-        }
-      });
+        should.fail();
+      } catch (e) {
+        e.body.should.eql(body);
+        e.code.should.equal(503);
+        e.message.should.equal('User has been suspended.');
+        e.should.be.instanceOf(HttpError);
+      }
     });
 
-    describe('status code 404', () => {
-      const statusCode = 404;
-
-      it('should throw an `NotFoundError`', () => {
-        const body = {
-          errors: {
-            message: 'User not found.'
-          },
-          message: 'User not found.',
-          success: false
-        };
-
-        try {
-          parse([{ request: { _debugId: id }, statusCode }, body]);
-
-          should.fail();
-        } catch (e) {
-          e.body.should.eql(body);
-          e.message.should.equal(body.message);
-          e.should.be.instanceOf(NotFoundError);
-        }
-      });
-    });
-
-    describe('status code 401', () => {
-      const statusCode = 401;
-
-      it('should throw an `UnauthorizedAccessError`', () => {
-        const body = {
-          errors: {
-            message: 'Token is invalid.'
-          },
-          message: 'Token is invalid.',
-          success: false,
-          token: 'is invalid'
-        };
-
-        try {
-          parse([{ request: { _debugId: id }, statusCode }, body]);
-
-          should.fail();
-        } catch (e) {
-          e.body.should.eql(body);
-          e.message.should.equal(body.message);
-          e.should.be.instanceOf(UnauthorizedAccessError);
-        }
-      });
-    });
-
-    describe('status code 400', () => {
-      const statusCode = 400;
-
-      it('should throw an `InvalidRequestError`', () => {
-        const body = {
-          email: `is invalid and can't be blank`,
-          errors: {
-            email: `is invalid and can\'t be blank`,
-            message: 'User was not valid.'
-          },
-          message: 'User was not valid.',
-          success: false
-        };
-
-        try {
-          parse([{ request: { _debugId: id }, statusCode }, body]);
-
-          should.fail();
-        } catch (e) {
-          e.body.should.eql(body);
-          e.message.should.equal(body.message);
-          e.should.be.instanceOf(InvalidRequestError);
-        }
-      });
-    });
-
-    it('should fallback to an `HttpError` if success message is `false`', () => {
+    it('should throw an error if status code is 200 but `success` is `false`', () => {
       const body = {
         errors: {
           message: `User doesn't exist.`
@@ -126,64 +42,62 @@ describe('ResponseParser', () => {
         message: `User doesn't exist.`,
         success: false
       };
-      const statusCode = 200;
 
       try {
-        parse([{ request: { _debugId: id }, statusCode }, body]);
-
-        should.fail();
-      } catch (e) {
-        e.body.should.equal(body);
-        e.message.should.equal('Unexpected error occurred');
-        e.should.be.instanceOf(HttpError);
-      }
-    });
-
-    it('should fallback to an `HttpError` if no specific error is thrown', () => {
-      const body = '<html><body><h1>502 Bad Gateway</h1> The server returned an invalid or incomplete response.</body></html>';
-      const statusCode = 200;
-
-      try {
-        parse([{ request: { _debugId: id }, statusCode }, body]);
-
-        should.fail();
-      } catch (e) {
-        e.body.should.equal(body);
-        e.message.should.equal('Unexpected error occurred');
-        e.should.be.instanceOf(HttpError);
-      }
-    });
-
-    it('should fallback to an `HttpError` if no specific body is returned', () => {
-      const statusCode = 200;
-
-      try {
-        parse([{ request: { _debugId: id }, statusCode }]);
-
-        should.fail();
-      } catch (e) {
-        should.not.exist(e.body);
-        e.message.should.equal('Unexpected error occurred');
-        e.should.be.instanceOf(HttpError);
-      }
-    });
-
-    it('should fallback to an `HttpError` if status code is unexpected', () => {
-      // Non-existent response to date.
-      const body = {
-        errors: {
-          limit: 'Rate limit exceeded'
-        }
-      };
-      const statusCode = 429;
-
-      try {
-        parse([{ request: { _debugId: id }, statusCode }, body]);
+        parse([{ statusCode: 200 }, body]);
 
         should.fail();
       } catch (e) {
         e.body.should.eql(body);
-        e.message.should.equal('Unexpected status code 429');
+        e.code.should.equal(500);
+        e.message.should.equal(`User doesn't exist.`);
+        e.should.be.instanceOf(HttpError);
+      }
+    });
+
+    it('should throw an error if status code is 200 but `success` is not available', () => {
+      const body = {
+        errors: {
+          message: `User doesn't exist.`
+        },
+        message: `User doesn't exist.`
+      };
+
+      try {
+        parse([{ statusCode: 200 }, body]);
+
+        should.fail();
+      } catch (e) {
+        e.body.should.eql(body);
+        e.code.should.equal(500);
+        e.message.should.equal(`User doesn't exist.`);
+        e.should.be.instanceOf(HttpError);
+      }
+    });
+
+    it('should throw an error if status code is 200 but `message` is not available', () => {
+      const body = '<html><body><h1>502 Bad Gateway</h1> The server returned an invalid or incomplete response.</body></html>';
+
+      try {
+        parse([{ statusCode: 200 }, body]);
+
+        should.fail();
+      } catch (e) {
+        e.body.should.equal(body);
+        e.code.should.equal(500);
+        e.message.should.equal('Internal Server Error');
+        e.should.be.instanceOf(HttpError);
+      }
+    });
+
+    it('should throw an error if status code is 200 but `body` is empty', () => {
+      try {
+        parse([{ statusCode: 200 }]);
+
+        should.fail();
+      } catch (e) {
+        should.not.exist(e.body);
+        e.message.should.equal('Internal Server Error');
         e.should.be.instanceOf(HttpError);
       }
     });
