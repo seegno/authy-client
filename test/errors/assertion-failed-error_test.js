@@ -3,40 +3,40 @@
  * Module dependencies.
  */
 
+import AssertionFailedError from '../../src/errors/assertion-failed-error';
 import HttpError from '../../src/errors/http-error';
-import InvalidResponseError from '../../src/errors/invalid-response-error';
 
 /**
- * Test `InvalidResponseError`.
+ * Test `AssertionFailedError`.
  */
 
-describe('InvalidResponseError', () => {
+describe('AssertionFailedError', () => {
   it('should inherit from `HttpError`', () => {
-    const error = new InvalidResponseError();
+    const error = new AssertionFailedError();
 
     error.should.be.instanceOf(HttpError);
   });
 
   it('should have default `code`', () => {
-    const error = new InvalidResponseError();
+    const error = new AssertionFailedError();
 
     error.code.should.equal(500);
   });
 
   it('should have default `message`', () => {
-    const error = new InvalidResponseError();
+    const error = new AssertionFailedError();
 
     error.message.should.equal('Internal Server Error');
   });
 
   it('should accept a `message`', () => {
-    const error = new InvalidResponseError({ message: 'foo' });
+    const error = new AssertionFailedError({ message: 'foo' });
 
     error.message.should.equal('foo');
   });
 
   it('should accept `properties`', () => {
-    const error = new InvalidResponseError({ properties: { foo: 'bar' } });
+    const error = new AssertionFailedError({ properties: { foo: 'bar' } });
 
     error.foo.should.equal('bar');
   });

@@ -7,7 +7,7 @@ import * as mocks from './mocks';
 import Client from '../src/client';
 import nock from 'nock';
 import should from 'should';
-import { InvalidResponseError, ValidationFailedError } from '../src/errors';
+import { AssertionFailedError, ValidationFailedError } from '../src/errors';
 import { resolution, verificationVia } from '../src/enums';
 
 /**
@@ -173,7 +173,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message.show().assert.should.equal('HaveProperty');
         e.errors.is_cellphone.show().assert.should.equal('HaveProperty');
@@ -190,7 +190,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.carrier[0].show().assert.should.equal('IsString');
         e.errors.is_cellphone[0].show().assert.should.equal('Boolean');
@@ -659,7 +659,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message.show().assert.should.equal('HaveProperty');
       }
@@ -673,7 +673,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message[0].show().assert.should.equal('EqualTo');
       }
@@ -750,7 +750,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message.show().assert.should.equal('HaveProperty');
         e.errors.ported.show().assert.should.equal('HaveProperty');
@@ -767,7 +767,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message[0].show().assert.should.equal('Regexp');
         e.errors.ported[0].show().assert.should.equal('Boolean');
@@ -835,7 +835,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.approval_request.show().assert.should.equal('HaveProperty');
       }
@@ -866,7 +866,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.approval_request._app_name[0].show().assert.should.equal('IsString');
         e.errors.approval_request._app_serial_id[0].show().assert.should.equal('IsString');
@@ -1060,7 +1060,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.approval_request.show().assert.should.equal('HaveProperty');
       }
@@ -1074,7 +1074,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.approval_request.uuid[0].show().assert.should.equal('IsString');
       }
@@ -1214,7 +1214,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message.show().assert.should.equal('HaveProperty');
         e.errors.user.show().assert.should.equal('HaveProperty');
@@ -1229,7 +1229,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.user.id.show().assert.should.equal('HaveProperty');
       }
@@ -1243,7 +1243,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message[0].show().assert.should.equal('EqualTo');
         e.errors.user.id[0].show().assert.should.equal('AuthyId');
@@ -1348,7 +1348,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message.show().assert.should.equal('HaveProperty');
         e.errors.token.show().assert.should.equal('HaveProperty');
@@ -1367,7 +1367,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message[0].show().assert.should.equal('EqualTo');
         e.errors.token[0].show().assert.should.equal('EqualTo');
@@ -1508,7 +1508,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.cellphone.show().assert.should.equal('HaveProperty');
         e.errors.message.show().assert.should.equal('HaveProperty');
@@ -1523,7 +1523,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.cellphone[0].show().assert.should.equal('IsString');
         e.errors.device[0].show().assert.should.equal('IsString');
@@ -1682,7 +1682,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.cellphone.show().assert.should.equal('HaveProperty');
         e.errors.message.show().assert.should.equal('HaveProperty');
@@ -1697,7 +1697,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.cellphone[0].show().assert.should.equal('IsString');
         e.errors.device[0].show().assert.should.equal('IsString');
@@ -1790,7 +1790,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message.show().assert.should.equal('HaveProperty');
       }
@@ -1804,7 +1804,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message[0].show().assert.should.equal('EqualTo');
       }
@@ -1878,7 +1878,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message.show().assert.should.equal('HaveProperty');
         e.errors.status.show().assert.should.equal('HaveProperty');
@@ -1905,7 +1905,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message[0].show().assert.should.equal('EqualTo');
         e.errors.status.authy_id[0].show().assert.should.equal('AuthyId');
@@ -1963,7 +1963,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message.show().assert.should.equal('HaveProperty');
         e.errors.app.show().assert.should.equal('HaveProperty');
@@ -1987,7 +1987,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message[0].show().assert.should.equal('EqualTo');
         e.errors.app.app_id[0].show().assert.should.equal('Integer');
@@ -2078,7 +2078,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message.show().assert.should.equal('HaveProperty');
       }
@@ -2092,7 +2092,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.message[0].show().assert.should.equal('EqualTo');
       }
@@ -2136,7 +2136,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.app_id.show().assert.should.equal('HaveProperty');
         e.errors.count.show().assert.should.equal('HaveProperty');
@@ -2161,7 +2161,7 @@ describe('Client', () => {
 
         should.fail();
       } catch (e) {
-        e.should.be.instanceOf(InvalidResponseError);
+        e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.app_id[0].show().assert.should.equal('Integer');
         e.errors.count[0].show().assert.should.equal('Integer');
