@@ -4,6 +4,6 @@
  */
 
 export default {
-  CALL: 'sms',
-  SMS: 'call'
+  CALL: 'call',
+  SMS: 'sms'
 };
