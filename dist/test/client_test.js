@@ -661,12 +661,12 @@ describe('Client', () => {
 
     it('should throw an error if `token` is invalid', _asyncToGenerator(function* () {
       try {
-        yield client.verifyPhone({ token: 'foobar' });
+        yield client.verifyPhone({ token: 1234 });
 
         _should2.default.fail();
       } catch (e) {
         e.should.be.instanceOf(_errors.ValidationFailedError);
-        e.errors.token[0].show().assert.should.equal('Integer');
+        e.errors.token[0].show().assert.should.equal('PhoneToken');
       }
     }));
 
@@ -674,7 +674,7 @@ describe('Client', () => {
       (0, _nock2.default)(/authy/).get(/\//).reply(200, { success: true });
 
       try {
-        yield client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: 1234 });
+        yield client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: '1234' });
 
         _should2.default.fail();
       } catch (e) {
@@ -688,7 +688,7 @@ describe('Client', () => {
       (0, _nock2.default)(/authy/).get(/\//).reply(200, { carrier: 123, is_cellphone: 'true', is_ported: 'true', message: 123, success: true });
 
       try {
-        yield client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: 1234 });
+        yield client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: '1234' });
 
         _should2.default.fail();
       } catch (e) {
@@ -710,7 +710,7 @@ describe('Client', () => {
         }
       });
 
-      const phoneVerification = yield client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: 1234 });
+      const phoneVerification = yield client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: '1234' });
 
       phoneVerification.should.have.keys('message', 'success');
     }));
@@ -718,7 +718,7 @@ describe('Client', () => {
     it('should accept a callback', done => {
       mocks.verifyPhone.succeed();
 
-      client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: 1234 }, (err, response) => {
+      client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: '1234' }, (err, response) => {
         _should2.default.not.exist(err);
         response.should.be.an.Object();
 

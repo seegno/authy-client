@@ -616,7 +616,7 @@ export default class Client {
       validate({ countryCode: countryOrCallingCode, phone, token }, {
         countryCode: [is.required(), is.countryOrCallingCode()],
         phone: [is.required(), is.phone(countryOrCallingCode)],
-        token: [is.required(), is.integer()]
+        token: [is.required(), is.phoneToken()]
       });
 
       const parsed = parsePhone({ countryOrCallingCode, phone });

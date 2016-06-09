@@ -864,7 +864,7 @@ class Client {
       (0, _validator.validate)({ countryCode: countryOrCallingCode, phone: phone, token: token }, {
         countryCode: [_validator.Assert.required(), _validator.Assert.countryOrCallingCode()],
         phone: [_validator.Assert.required(), _validator.Assert.phone(countryOrCallingCode)],
-        token: [_validator.Assert.required(), _validator.Assert.integer()]
+        token: [_validator.Assert.required(), _validator.Assert.phoneToken()]
       });
 
       const parsed = (0, _phoneParser2.default)({ countryOrCallingCode: countryOrCallingCode, phone: phone });

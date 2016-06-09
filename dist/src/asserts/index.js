@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.VerificationVia = exports.TotpToken = exports.Signature = exports.Phone = exports.Logo = exports.Locale = exports.CountryOrCallingCode = exports.AuthyId = exports.Activity = undefined;
+exports.VerificationVia = exports.TotpToken = exports.Signature = exports.PhoneToken = exports.Phone = exports.Logo = exports.Locale = exports.CountryOrCallingCode = exports.AuthyId = exports.Activity = undefined;
 
 var _activityAssert = require('./activity-assert');
 
@@ -29,6 +29,10 @@ var _phoneAssert = require('./phone-assert');
 
 var _phoneAssert2 = _interopRequireDefault(_phoneAssert);
 
+var _phoneTokenAssert = require('./phone-token-assert');
+
+var _phoneTokenAssert2 = _interopRequireDefault(_phoneTokenAssert);
+
 var _signatureAssert = require('./signature-assert');
 
 var _signatureAssert2 = _interopRequireDefault(_signatureAssert);
@@ -47,15 +51,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Export named asserts.
  */
 
+/**
+ * Module dependencies.
+ */
+
 exports.Activity = _activityAssert2.default;
 exports.AuthyId = _authyIdAssert2.default;
 exports.CountryOrCallingCode = _countryOrCallingCodeAssert2.default;
 exports.Locale = _localeAssert2.default;
 exports.Logo = _logoAssert2.default;
 exports.Phone = _phoneAssert2.default;
+exports.PhoneToken = _phoneTokenAssert2.default;
 exports.Signature = _signatureAssert2.default;
 exports.TotpToken = _totpTokenAssert2.default;
 exports.VerificationVia = _verificationViaAssert2.default;
-/**
- * Module dependencies.
- */
