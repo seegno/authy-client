@@ -642,12 +642,12 @@ describe('Client', () => {
 
     it('should throw an error if `token` is invalid', async () => {
       try {
-        await client.verifyPhone({ token: 'foobar' });
+        await client.verifyPhone({ token: 1234 });
 
         should.fail();
       } catch (e) {
         e.should.be.instanceOf(ValidationFailedError);
-        e.errors.token[0].show().assert.should.equal('Integer');
+        e.errors.token[0].show().assert.should.equal('PhoneToken');
       }
     });
 
@@ -655,7 +655,7 @@ describe('Client', () => {
       nock(/authy/).get(/\//).reply(200, { success: true });
 
       try {
-        await client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: 1234 });
+        await client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: '1234' });
 
         should.fail();
       } catch (e) {
@@ -669,7 +669,7 @@ describe('Client', () => {
       nock(/authy/).get(/\//).reply(200, { carrier: 123, is_cellphone: 'true', is_ported: 'true', message: 123, success: true });
 
       try {
-        await client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: 1234 });
+        await client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: '1234' });
 
         should.fail();
       } catch (e) {
@@ -691,7 +691,7 @@ describe('Client', () => {
         }
       });
 
-      const phoneVerification = await client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: 1234 });
+      const phoneVerification = await client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: '1234' });
 
       phoneVerification.should.have.keys('message', 'success');
     });
@@ -699,7 +699,7 @@ describe('Client', () => {
     it('should accept a callback', done => {
       mocks.verifyPhone.succeed();
 
-      client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: 1234 }, (err, response) => {
+      client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: '1234' }, (err, response) => {
         should.not.exist(err);
         response.should.be.an.Object();
 

@@ -9,6 +9,7 @@ import CountryOrCallingCode from './country-or-calling-code-assert';
 import Locale from './locale-assert';
 import Logo from './logo-assert';
 import Phone from './phone-assert';
+import PhoneToken from './phone-token-assert';
 import Signature from './signature-assert';
 import TotpToken from './totp-token-assert';
 import VerificationVia from './verification-via-assert';
@@ -24,6 +25,7 @@ export {
   Locale,
   Logo,
   Phone,
+  PhoneToken,
   Signature,
   TotpToken,
   VerificationVia
