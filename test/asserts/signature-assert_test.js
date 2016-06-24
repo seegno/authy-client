@@ -99,4 +99,28 @@ describe('SignatureAssert', () => {
       }
     }).validate('uq/wB8AR1Acvn0wFcjm7mmBJyR11nuuMhMy6semsAO8=');
   });
+
+  it('should encode spaces as + instead of %20', () => {
+    new Assert().Signature({
+      key: 'foo',
+      request: {
+        body: {
+          qux: 'net',
+          foo: {
+            bar: {
+              biz: 'foo bar'
+            }
+          }
+        },
+        headers: {
+          host: 'foo.bar',
+          'x-authy-signature': '+fyGys+d5yNJx9SpeKZdf+N77od1t1cC/fVSWDW2+kY=',
+          'x-authy-signature-nonce': 1455825429
+        },
+        method: 'POST',
+        protocol: 'https',
+        url: '/'
+      }
+    }).validate('+fyGys+d5yNJx9SpeKZdf+N77od1t1cC/fVSWDW2+kY=');
+  });
 });

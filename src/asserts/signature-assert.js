@@ -35,7 +35,10 @@ export default function signatureAssert({ key, request } = {}) {
 
     const { body, headers: { 'x-authy-signature-nonce': nonce, host }, method, protocol, url: path } = this.request;
     const url = parse(`${protocol}://${host}${path}`, true);
-    const encoded = qs.stringify(body, { sort: (a, b) => a.localeCompare(b) });
+    let encoded = qs.stringify(body, { sort: (a, b) => a.localeCompare(b) });
+
+    // "qs" encodes space as %20, but Authy encodes as + in their signature generation
+    encoded = encoded.replace(/%20/g, '+');
     const data = `${nonce}|${method}|${url.protocol}//${url.host}${url.pathname}|${encoded}`;
     const signature = createHmac('sha256', this.key).update(data).digest('base64');
 
