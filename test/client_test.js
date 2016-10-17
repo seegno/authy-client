@@ -1528,7 +1528,7 @@ describe('Client', () => {
         e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.cellphone[0].show().assert.should.equal('IsString');
-        e.errors.device[0].show().assert.should.equal('IsString');
+        e.errors.device[0].show().assert.should.equal('NullOrString');
         e.errors.ignored[0].show().assert.should.equal('Boolean');
         e.errors.message[0].show().assert.should.equal('IsString');
       }
@@ -1702,7 +1702,7 @@ describe('Client', () => {
         e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.cellphone[0].show().assert.should.equal('IsString');
-        e.errors.device[0].show().assert.should.equal('IsString');
+        e.errors.device[0].show().assert.should.equal('NullOrString');
         e.errors.ignored[0].show().assert.should.equal('Boolean');
         e.errors.message[0].show().assert.should.equal('IsString');
       }

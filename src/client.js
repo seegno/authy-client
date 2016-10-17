@@ -403,7 +403,7 @@ export default class Client {
       .tap(response => {
         assert(response, {
           cellphone: [is.required(), is.string()],
-          device: is.string(),
+          device: is.nullOrString(),
           ignored: is.boolean(),
           message: [is.required(), is.string()]
         });
@@ -444,7 +444,7 @@ export default class Client {
       .tap(response => {
         assert(response, {
           cellphone: [is.required(), is.string()],
-          device: is.string(),
+          device: is.nullOrString(),
           ignored: is.boolean(),
           message: [is.required(), is.string()]
         });
