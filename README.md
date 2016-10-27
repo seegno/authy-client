@@ -112,7 +112,7 @@ client.registerUser({ countryCode: 'PT', email: 'foo@bar.com', phone: '911234567
   .then(function(response) {
     console.log('Authy Id', response.user.id);
   })
-  .catch(function(erro) {
+  .catch(function(error) {
     throw error;
   });
 ```
