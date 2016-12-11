@@ -858,7 +858,7 @@ describe('Client', () => {
       nock(/authy/).get(/\//).reply(200, {
         approval_request: {
           _app_name: 123,
-          _app_serial_id: 123,
+          _app_serial_id: '123',
           _authy_id: 'foo',
           _id: 123,
           _user_email: 'bar',
@@ -882,7 +882,7 @@ describe('Client', () => {
         e.should.be.instanceOf(AssertionFailedError);
 
         e.errors.approval_request._app_name[0].show().assert.should.equal('IsString');
-        e.errors.approval_request._app_serial_id[0].show().assert.should.equal('IsString');
+        e.errors.approval_request._app_serial_id[0].show().assert.should.equal('Integer');
         e.errors.approval_request._authy_id[0].show().assert.should.equal('AuthyId');
         e.errors.approval_request._id[0].show().assert.should.equal('IsString');
         e.errors.approval_request._user_email[0].show().assert.should.equal('Email');

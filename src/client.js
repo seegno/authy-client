@@ -208,7 +208,7 @@ export default class Client {
         assert(response, {
           approval_request: {
             _app_name: [is.required(), is.string()],
-            _app_serial_id: [is.required(), is.string()],
+            _app_serial_id: [is.required(), is.integer()],
             _authy_id: [is.required(), is.authyId()],
             _id: [is.required(), is.string()],
             _user_email: [is.required(), is.email()],
