@@ -5,7 +5,7 @@
 
 import { PhoneNumberUtil } from 'google-libphonenumber';
 import { Violation } from 'validator.js';
-import debugnyan from '../logging/debugnyan';
+import debugnyan from 'debugnyan';
 import { isNumber, isString } from 'lodash';
 
 /**

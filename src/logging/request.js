@@ -3,8 +3,9 @@
  * Module dependencies.
  */
 
-import debug from 'request-debug';
-import debugnyan from './debugnyan';
+import debugnyan from 'debugnyan';
+import logger from '@uphold/request-logger';
+import { obfuscate } from './request-obfuscator';
 import request from 'request';
 
 /**
@@ -12,20 +13,19 @@ import request from 'request';
  */
 
 const log = debugnyan('authy:request');
-const replacement = /(api_key=)([^&])*/;
 
 /**
- * Customize log handler.
+ * Export `request`.
  */
 
-debug(request, (type, data) => {
-  const uri = (data.uri || '').replace(replacement, '$1*****');
+export default logger(request, request => {
+  obfuscate(request);
 
-  let message = `Making request #${data.debugId} to ${data.method} ${uri}`;
+  if (request.type === 'response') {
+    log.debug({ request }, `Received response for request ${request.id}`);
 
-  if (type === 'response') {
-    message = `Received response for request #${data.debugId}`;
+    return;
   }
 
-  log.debug({ [type]: data, type }, message);
+  log.debug({ request }, `Making request ${request.id} to ${request.method} ${request.uri}`);
 });

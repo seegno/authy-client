@@ -39,13 +39,13 @@
     "version": "npm run changelog --future-release=$npm_package_version && npm run transpile && git add -A CHANGELOG.md dist"
   },
   "dependencies": {
+    "@uphold/request-logger": "^1.2.0",
     "bluebird": "^3.4.6",
     "debugnyan": "^1.0.0",
     "google-libphonenumber": "^2.0.2",
     "lodash": "^4.16.2",
     "qs": "^6.2.1",
     "request": "^2.75.0",
-    "request-debug": "^0.2.0",
     "standard-http-error": "^2.0.0",
     "urijs": "^1.18.2",
     "url-escape-tag": "^1.0.0",
