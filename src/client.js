@@ -94,7 +94,7 @@ export default class Client {
       });
 
       return this.onetouch.postAsync({
-        form: {
+        body: {
           api_key: this.key,
           details: details.visible,
           hidden_details: details.hidden,
@@ -133,7 +133,7 @@ export default class Client {
       });
 
       return this.rpc.postAsync({
-        form: _.pickBy({
+        body: _.pickBy({
           user_ip: ip
         }, _.identity),
         uri: esc`users/${authyId}/delete`
@@ -310,7 +310,7 @@ export default class Client {
       });
 
       return this.rpc.getAsync({
-        form: _.pickBy({
+        body: _.pickBy({
           user_ip: ip
         }, _.identity),
         uri: esc`users/${authyId}/status`
@@ -353,7 +353,7 @@ export default class Client {
       });
 
       return this.rpc.postAsync({
-        form: {
+        body: {
           data,
           type,
           user_ip: ip
@@ -473,7 +473,7 @@ export default class Client {
       const parsed = parsePhone({ countryOrCallingCode, phone });
 
       return this.rpc.postAsync({
-        form: {
+        body: {
           user: {
             cellphone: parsed.phone,
             country_code: parsed.countryCallingCode,
@@ -548,7 +548,7 @@ export default class Client {
       const parsed = parsePhone({ countryOrCallingCode, phone });
 
       return this.rpc.postAsync({
-        form: _.pickBy({
+        body: _.pickBy({
           country_code: parsed.countryCallingCode,
           locale,
           phone_number: parsed.phone,

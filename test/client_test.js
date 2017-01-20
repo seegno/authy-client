@@ -203,7 +203,7 @@ describe('Client', () => {
       mocks.startPhoneVerification.succeed({
         request: {
           body: {
-            country_code: '1',
+            country_code: 1,
             locale: 'es',
             phone_number: '7754615609',
             via: 'sms'
@@ -1086,17 +1086,24 @@ describe('Client', () => {
       mocks.createApprovalRequest.succeed({
         request: {
           body: {
-            api_key: '{key}',
-            'details[Account Number]': '981266321',
-            'details[location]': 'California, USA',
-            'details[username]': 'Bill Smith',
-            'hidden_details[ip_address]': '10.10.3.203',
-            'logos[0][res]': 'default',
-            'logos[0][url]': 'https://example.com/logos/default.png',
-            'logos[1][res]': 'low',
-            'logos[1][url]': 'https://example.com/logos/low.png',
+            api_key: '1DS9YIwGquvvIdx8GdcdqZGLAewZZyhd',
+            details: {
+              'Account Number': '981266321',
+              location: 'California, USA',
+              username: 'Bill Smith'
+            },
+            hidden_details: {
+              ip_address: '10.10.3.203'
+            },
+            logos: [{
+              res: 'default',
+              url: 'https://example.com/logos/default.png'
+            }, {
+              res: 'low',
+              url: 'https://example.com/logos/low.png'
+            }],
             message: 'Login requested for a CapTrade Bank account.',
-            seconds_to_expire: '120'
+            seconds_to_expire: 120
           }
         }
       });
@@ -1256,9 +1263,11 @@ describe('Client', () => {
       mocks.registerUser.succeed({
         request: {
           body: {
-            'user[cellphone]': '911234567',
-            'user[country_code]': '351',
-            'user[email]': 'foo@bar.com'
+            user: {
+              cellphone: '911234567',
+              country_code: 351,
+              email: 'foo@bar.com'
+            }
           }
         }
       });
@@ -2101,7 +2110,17 @@ describe('Client', () => {
     });
 
     it('should register the activity', async () => {
-      mocks.registerActivity.succeed({ request: { body: { 'data[reason]': 'foo', type: 'banned', user_ip: '86.112.56.34' } } });
+      mocks.registerActivity.succeed({
+        request: {
+          body: {
+            data: {
+              reason: 'foo'
+            },
+            type: 'banned',
+            user_ip: '86.112.56.34'
+          }
+        }
+      });
 
       await client.registerActivity({ authyId: 1635, data: { reason: 'foo' }, type: 'banned' }, { ip: '86.112.56.34' });
     });
