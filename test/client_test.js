@@ -1086,7 +1086,7 @@ describe('Client', () => {
       mocks.createApprovalRequest.succeed({
         request: {
           body: {
-            api_key: '1DS9YIwGquvvIdx8GdcdqZGLAewZZyhd',
+            api_key: client.key,
             details: {
               'Account Number': '981266321',
               location: 'California, USA',
