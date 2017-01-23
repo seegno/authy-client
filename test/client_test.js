@@ -242,7 +242,7 @@ describe('Client', () => {
 
     it('should throw an error if `body.approval_request` is invalid', async () => {
       try {
-        await client.verifyCallback({ body: { approval_request: true }, method: 'POST', protocol: 'http', url: '/' });
+        await client.verifyCallback({ body: { approval_request: 123 }, method: 'POST', protocol: 'http', url: '/' });
 
         should.fail();
       } catch (e) {
@@ -528,10 +528,7 @@ describe('Client', () => {
               device_signing_time: 0,
               encrypted: false,
               flagged: false,
-              hidden_details: {
-                integer: 12,
-                string: 'foo'
-              },
+              hidden_details: {},
               message: '.',
               reason: null,
               requester_details: null,
@@ -548,7 +545,7 @@ describe('Client', () => {
         },
         headers: {
           host: 'foo.bar',
-          'x-authy-signature': '1oyl899IjkMH2Y1ldpdbhRSwVwlEHb7yzlITSeqLNsQ=',
+          'x-authy-signature': 'hqB6las54sMBA83GKs0U1QQi9ocJ2tH20SXHZNzfqqQ=',
           'x-authy-signature-nonce': '1455825429'
         },
         method: 'POST',
