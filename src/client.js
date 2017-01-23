@@ -583,7 +583,7 @@ export default class Client {
       validate(request, {
         body: {
           approval_request: [is.required(), is.callback(value => {
-            return is.string().check(value) === true || is.plainObject().check(value) === true;
+            return is.integer().check(value) === true || is.string().check(value) === true || is.plainObject().check(value) === true;
           })],
           authy_id: [is.required(), is.authyId()],
           callback_action: [is.required(), is.choice(['approval_request_status'])],
