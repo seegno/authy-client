@@ -37,7 +37,10 @@ export default function signatureAssert({ key, request } = {}) {
     const url = parse(`${protocol}://${host}${path}`, true);
 
     // Stringify body using sorted keys and encoding spaces as "+" instead of "%20".
-    const encoded = qs.stringify(body, { sort: (a, b) => a.localeCompare(b) }).replace(/%20/g, '+');
+    const encoded = qs.stringify(body, {
+      arrayFormat: 'brackets',
+      sort: (a, b) => a.localeCompare(b)
+    }).replace(/%20/g, '+');
 
     const data = `${nonce}|${method}|${url.protocol}//${url.host}${url.pathname}|${encoded}`;
     const signature = createHmac('sha256', this.key).update(data).digest('base64');
