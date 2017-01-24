@@ -3,7 +3,6 @@
  * Module dependencies.
  */
 
-import { defaults } from 'lodash';
 import nock from 'nock';
 
 /**
@@ -12,9 +11,8 @@ import nock from 'nock';
 
 function mock({ request = {}, response = {} }) {
   return nock(/\.authy\.com/)
-    .filteringPath(path => path.replace(/\=[^&].+/, '={key}'))
     .post('/protected/json/phones/verification/start', request.body)
-    .query(request.query ? defaults({ api_key: '{key}' }, request.query) : true)
+    .query(request.query ? request.query : true)
     .reply(response.code, response.body);
 }
 

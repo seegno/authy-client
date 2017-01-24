@@ -3,7 +3,6 @@
  * Module dependencies.
  */
 
-import { defaults } from 'lodash';
 import nock from 'nock';
 import uuid from '../utils/uuid';
 
@@ -13,9 +12,9 @@ import uuid from '../utils/uuid';
 
 function mock({ request = {}, response = {} }) {
   return nock(/\.authy\.com/)
-    .filteringPath(path => path.replace(/key=.*?(&|$)/, 'key={key}$1').replace(/[\w]{8}(-[\w]{4}){3}-[\w]{12}/, '{id}'))
+    .filteringPath(path => path.replace(/[\w]{8}(-[\w]{4}){3}-[\w]{12}/, '{id}'))
     .get('/onetouch/json/approval_requests/{id}')
-    .query(request.query ? defaults({ api_key: '{key}' }, request.query) : true)
+    .query(request.query ? request.query : true)
     .reply(response.code, response.body);
 }
 

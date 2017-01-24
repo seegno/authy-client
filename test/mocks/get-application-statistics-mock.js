@@ -4,7 +4,7 @@
  */
 
 import nock from 'nock';
-import { defaults, random, times } from 'lodash';
+import { random, times } from 'lodash';
 
 /**
  * List of month names.
@@ -18,9 +18,8 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 
 function mock({ request = {}, response = {} }) {
   return nock(/\.authy\.com/)
-    .filteringPath(path => path.replace(/key=.*?(&|$)/, 'key={key}$1'))
     .get('/protected/json/app/stats')
-    .query(request.query ? defaults({ api_key: '{key}' }, request.query) : true)
+    .query(request.query ? request.query : true)
     .reply(response.code, response.body);
 }
 

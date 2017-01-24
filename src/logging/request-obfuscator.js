@@ -3,24 +3,22 @@
  * Module dependencies.
  */
 
-import { isString } from 'lodash';
+import { has } from 'lodash';
 
 /**
  * Instances.
  */
 
-const replacement = /(api_key=)([^&])*/;
+const key = 'X-Authy-API-Key';
 
 /**
  * Export `RequestObfuscator`.
  */
 
 export function obfuscate(request) {
-  // Obfuscate the API key on `uri`.
-  request.uri = request.uri.replace(replacement, '$1*****');
-
-  // Obfuscate the API key on `body`.
-  if (isString(request.body)) {
-    request.body = request.body.replace(replacement, '$1*****');
+  if (!has(request, `headers.${key}`)) {
+    return request;
   }
+
+  request.headers[key] = '*****';
 }

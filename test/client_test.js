@@ -696,7 +696,6 @@ describe('Client', () => {
       mocks.verifyPhone.succeed({
         request: {
           query: {
-            api_key: '{key}',
             country_code: '1',
             phone_number: '7754615609',
             verification_code: '1234'
@@ -1086,7 +1085,6 @@ describe('Client', () => {
       mocks.createApprovalRequest.succeed({
         request: {
           body: {
-            api_key: client.key,
             details: {
               'Account Number': '981266321',
               location: 'California, USA',

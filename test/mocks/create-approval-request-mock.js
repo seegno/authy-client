@@ -13,7 +13,6 @@ import uuid from '../utils/uuid';
 function mock({ request = {}, response = {} }) {
   return nock(/\.authy\.com/)
     .filteringPath(path => path.replace(/\d+/, '{authyId}'))
-    .filteringRequestBody(body => body.replace(/key=.*?(&|$)/, 'key={key}$1'))
     .post('/onetouch/json/users/{authyId}/approval_requests', request.body)
     .reply(response.code, response.body);
 }

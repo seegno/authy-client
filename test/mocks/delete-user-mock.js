@@ -11,8 +11,8 @@ import nock from 'nock';
 
 function mock({ request = {}, response = {} }) {
   return nock(/\.authy\.com/)
-    .filteringPath(path => path.replace(/\=[^&].+/, '={key}').replace(/\/[0-9].*\//, '/{authyId}/'))
-    .post('/protected/json/users/{authyId}/delete?api_key={key}', request.body)
+    .filteringPath(path => path.replace(/\/[0-9].*\//, '/{authyId}/'))
+    .post('/protected/json/users/{authyId}/delete', request.body)
     .reply(response.code, response.body);
 }
 

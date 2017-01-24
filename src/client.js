@@ -55,7 +55,8 @@ export default class Client {
     // Request default options.
     this.defaults = {
       headers: {
-        'User-Agent': `${manifest.name}/${manifest.version} (${manifest.homepage})`
+        'User-Agent': `${manifest.name}/${manifest.version} (${manifest.homepage})`,
+        'X-Authy-API-Key': this.key
       },
       json: true,
       strictSSL: true,
@@ -63,8 +64,7 @@ export default class Client {
     };
 
     this.rpc = Promise.promisifyAll(request.defaults(_.defaultsDeep({
-      baseUrl: `${this.host}/protected/json/`,
-      qs: { api_key: this.key }
+      baseUrl: `${this.host}/protected/json/`
     }, this.defaults)), { multiArgs: true });
 
     this.onetouch = Promise.promisifyAll(request.defaults(_.defaultsDeep({
@@ -95,7 +95,6 @@ export default class Client {
 
       return this.onetouch.postAsync({
         body: {
-          api_key: this.key,
           details: details.visible,
           hidden_details: details.hidden,
           logos,
@@ -196,12 +195,7 @@ export default class Client {
         id: [is.required(), is.string()]
       });
 
-      return this.onetouch.getAsync({
-        qs: {
-          api_key: this.key
-        },
-        uri: esc`approval_requests/${id}`
-      })
+      return this.onetouch.getAsync({ uri: esc`approval_requests/${id}` })
       .bind(this)
       .then(parseResponse)
       .tap(response => {
