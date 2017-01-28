@@ -305,7 +305,7 @@ Register a user activity.
 3. `args.type` _(string)_: the activity type (one of `password_reset`, `banned`, `unbanned` or `cookie_login`).
 4. `[data]` _(Object)_: a data object associated with the activity.
 5. `[options]` _(Object)_: the options object.
-6. `[options.ip]` _(string)_: the IP of the user whose activity is being registered.
+6. `[options.ip]` _(string)_: the IP of the user registering the activity.
 7. `[callback]` _(Function)_: a callback, otherwise a Promise is returned.
 
 ###### Example
