@@ -177,7 +177,6 @@ describe('Client', () => {
 
         e.errors.message.show().assert.should.equal('HaveProperty');
         e.errors.is_cellphone.show().assert.should.equal('HaveProperty');
-        e.errors.is_ported.show().assert.should.equal('HaveProperty');
         e.errors.message.show().assert.should.equal('HaveProperty');
       }
     });

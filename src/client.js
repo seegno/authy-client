@@ -556,7 +556,7 @@ export default class Client {
         assert(response, {
           carrier: [is.required(), is.string()],
           is_cellphone: [is.required(), is.boolean()],
-          is_ported: [is.required(), is.boolean()],
+          is_ported: is.boolean(),
           message: [is.required(), is.string()]
         });
       })
