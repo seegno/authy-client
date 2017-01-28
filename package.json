@@ -28,6 +28,9 @@
     "type": "git",
     "url": "https://github.com/seegno/authy-client.git"
   },
+  "bin": {
+    "authy": "dist/src/bin/cli.js"
+  },
   "scripts": {
     "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
     "coverage": "nyc --reporter=html --reporter=text npm test",
@@ -44,6 +47,7 @@
     "debugnyan": "^1.0.0",
     "google-libphonenumber": "^2.0.2",
     "lodash": "^4.16.2",
+    "prettyjson": "^1.2.1",
     "qs": "^6.2.1",
     "request": "^2.75.0",
     "standard-http-error": "^2.0.0",
@@ -51,11 +55,13 @@
     "url-escape-tag": "^1.0.0",
     "validator": "^6.0.0",
     "validator.js": "^2.0.3",
-    "validator.js-asserts": "^3.0.1"
+    "validator.js-asserts": "^3.0.1",
+    "yargs": "^6.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
     "babel-eslint": "^7.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-async-to-module-method": "^6.8.0",
     "babel-preset-es2015-node4": "^2.1.0",
     "babel-preset-stage-1": "^6.13.0",

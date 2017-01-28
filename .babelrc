@@ -9,5 +9,6 @@
       ]
     }
   },
-  "presets": ["es2015-node4", "stage-1"]
+  "presets": ["es2015-node4", "stage-1"],
+  "plugins": ["add-module-exports"]
 }

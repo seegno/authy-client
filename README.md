@@ -12,6 +12,32 @@ npm install authy-client --save
 ```
 
 ## Usage
+
+## Command-line interface
+
+The package provides the command-line utility `authy`. It handles most tasks without require any coding.
+
+```sh
+❯ authy
+Commands:
+  activity <command>     Manage activity
+  application <command>  Manage application information
+  onetouch <command>     Manage onetouch requests
+  phone <command>        Manage phone verifications
+  user <command>         Manage users
+
+Options:
+  --key     API Key                                          [string] [required]
+  --pretty  Whether to print pretty results            [boolean] [default: true]
+  --help    Show help                                                  [boolean]
+```
+
+Note that all calls must be authenticated using the API Key. However, if you prefer, you can define the API Key using the environment variable `AUTHY_KEY` such as:
+
+```sh
+❯ AUTHY_KEY=foobar authy <command>
+```
+
 ### Examples
 #### Registering a user and requesting an SMS
 **Using await/async (requires `babel`)**:
@@ -65,6 +91,31 @@ client.registerUser({ countryCode: 'PT', email: 'foo@bar.com', phone: '911234567
 ```
 
 If you want to run this example without first transpiling it, you can install the `babel-cli` package and run `node_modules/.bin/babel-node example.js`.
+
+**Using cli**:
+
+![demo](cli.gif)
+
+```sh
+❯ authy
+Commands:
+  activity <command>     Manage activity
+  application <command>  Manage application information
+  onetouch <command>     Manage onetouch requests
+  phone <command>        Manage phone verifications
+  user <command>         Manage users
+
+Options:
+  --key     API Key                                          [string] [required]
+  --pretty  Whether to print pretty results            [boolean] [default: true]
+  --help    Show help                                                  [boolean]
+```
+
+Note that all calls must be authenticated using the API Key. However, if you prefer, you can define the API Key using the environment variable `AUTHY_KEY` such as:
+
+```sh
+❯ AUTHY_KEY=foobar authy <command>
+```
 
 ### Client({ key }, [options])
 #### Arguments
@@ -127,6 +178,12 @@ client.registerUser({ countryCode: 'PT', email: 'foo@bar.com', phone: '911234567
 });
 ```
 
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy user create 911234567 PT foo@bar.com
+```
+
 ##### requestSms({ authyId }, [options, callback])
 Request an SMS with a token for users that don't own a smartphone. If the Authy app is in use by the user, this request is ignored and a push notification is sent instead.
 
@@ -168,6 +225,12 @@ client.requestSms({ authyId: 1635 }, function(err, res) {
 
   console.log('Message sent successfully to', res.cellphone);
 });
+```
+
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy user request sms 1635
 ```
 
 ##### requestCall({ authyId }, [options, callback])
@@ -213,6 +276,12 @@ client.requestCall({ authyId: 1635 }, function(err, res) {
 });
 ```
 
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy user request call 1635
+```
+
 ##### verifyToken({ authyId, token }, [options, callback])
 Verify if a token submitted by the user is valid or not.
 
@@ -255,6 +324,12 @@ client.verifyToken({ authyId: 1635, token: '1234567' }, function(err, res) {
 });
 ```
 
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy user verify --token 1234567
+```
+
 ##### deleteUser({ authyId }, [options, callback])
 Delete a user from the application.
 
@@ -294,6 +369,12 @@ client.deleteUser({ authyId: 1635 }, function(err, res) {
 
   console.log('User has been scheduled for deletion');
 });
+```
+
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy user delete 1635
 ```
 
 ##### registerActivity({ authyId, data, type }, [options, callback])
@@ -339,6 +420,15 @@ client.registerActivity({ authyId: 1635, data: { reason: 'foo' }, type: 'banned'
 });
 ```
 
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy activity create 1635 \
+    --data.reason foo \
+    --type banned \
+    --ip 127.0.0.1
+```
+
 ##### getUserStatus({ authyId }, [options, callback])
 Retrieve the user status, such as the registered country code, phone number, devices and confirmation status.
 
@@ -380,6 +470,12 @@ client.getUserStatus({ authyId: 1635 }, function(err, res) {
 });
 ```
 
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy user get status 1635
+```
+
 ##### getApplicationDetails([options, callback])
 Retrieve application details such as its name or current billing plan.
 
@@ -419,6 +515,12 @@ client.getApplicationDetails(function(err, res) {
 });
 ```
 
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy application get details
+```
+
 ##### getApplicationStatistics([options, callback])
 Retrieve application statistics by month and current quotas.
 
@@ -456,6 +558,12 @@ client.getApplicationStatistics(function(err, res) {
 
   console.log('Application statistics', response);
 });
+```
+
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy application get statistics
 ```
 
 ### Phone Verification API
@@ -511,6 +619,14 @@ client.startPhoneVerification({ countryCode: 'US', locale: 'en', phone: '7754615
 });
 ```
 
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy phone verify 7754615609 US \
+    --locale=en \
+    --via=sms
+```
+
 ##### verifyPhone({ countryCode, phone, token }, [callback])
 Verify a phone number through a verification code.
 
@@ -550,6 +666,12 @@ client.verifyPhone({ countryCode: 'US', phone: '7754615609', token: '1234' }, fu
 
   console.log('Verification code is correct');
 });
+```
+
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy phone verify 7754615609 US --token 1234
 ```
 
 ### Phone Intelligence API
@@ -596,6 +718,12 @@ client.getPhoneInformation({ countryCode: 'US', phone: '7754615609' }, function(
 
   console.log('Phone information', response);
 });
+```
+
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy phone get information 7754615609 US
 ```
 
 ### OneTouch API
@@ -717,6 +845,22 @@ client.createApprovalRequest({
 });
 ```
 
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy onetouch create 1635 \
+  'Login requested for a CapTrade Bank account.' \
+  --hidden.ip_address 10.10.3.203 \
+  --logos.0.res default \
+  --logos.0.url 'https://example.com/logos/default.png' \
+  --logos.1.res low \
+  --logos.1.url 'https://example.com/logos/low.png' \
+  --visible.'Account Number' 981266321 \
+  --visible.location 'California, USA' \
+  --visible.username 'Bill Smith' \
+  --ttl 120
+```
+
 ##### getApprovalRequest({ id }, [callback])
 Get information about an approval request.
 
@@ -754,6 +898,12 @@ client.getApprovalRequest({ id: '550e8400-e29b-41d4-a716-446655440000' }, functi
 
   console.log('Approval request', response.approval_request);
 });
+```
+
+**Using cli**:
+
+```sh
+❯ AUTHY_KEY=foobar authy phone get status 550e8400-e29b-41d4-a716-446655440000
 ```
 
 ##### verifyCallback({ body, headers, method, protocol, url }, [callback])
