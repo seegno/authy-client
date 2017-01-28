@@ -210,7 +210,7 @@ export default class Client {
             created_at: [is.required(), is.date()],
             notified: [is.required(), is.boolean()],
             processed_at: is.callback(value => is.null().check(value) === true || is.date().check(value) === true),
-            status: [is.required(), is.choice(['approved', 'denied', 'pending'])],
+            status: [is.required(), is.choice(['approved', 'denied', 'expired', 'pending'])],
             updated_at: [is.required(), is.date()],
             user_id: [is.required(), is.string()],
             uuid: [is.required(), is.string()]

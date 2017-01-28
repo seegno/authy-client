@@ -896,13 +896,15 @@ describe('Client', () => {
       }
     });
 
-    it('should return the status of an approval request', async () => {
-      mocks.getApprovalRequest.succeed({ status: 'pending' });
+    ['approved', 'denied', 'expired', 'pending'].forEach(status => {
+      it(`should return the status of a(n) ${status} approval request`, async () => {
+        mocks.getApprovalRequest.succeed({ status, ttl: -1 });
 
-      const approvalRequest = await client.getApprovalRequest({ id: '550e8400-e29b-41d4-a716-446655440000' });
+        const approvalRequest = await client.getApprovalRequest({ id: '550e8400-e29b-41d4-a716-446655440000' });
 
-      approvalRequest.should.have.keys('approval_request', 'success');
-      approvalRequest.approval_request.should.have.keys('_app_name', '_app_serial_id', '_authy_id', '_id', '_user_email', 'app_id', 'created_at', 'notified', 'processed_at', 'status', 'updated_at', 'user_id', 'uuid');
+        approvalRequest.should.have.keys('approval_request', 'success');
+        approvalRequest.approval_request.should.have.keys('_app_name', '_app_serial_id', '_authy_id', '_id', '_user_email', 'app_id', 'created_at', 'notified', 'processed_at', 'status', 'updated_at', 'user_id', 'uuid');
+      });
     });
 
     it('should accept a callback', done => {

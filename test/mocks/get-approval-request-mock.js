@@ -22,14 +22,13 @@ function mock({ request = {}, response = {} }) {
  * Export a request that will `succeed`.
  */
 
-export function succeed({ request, status = 'approved' } = {}) {
+export function succeed({ request, status = 'approved', ttl } = {}) {
   const now = new Date().toISOString();
   const createdAt = now;
   const updatedAt = now;
+  let processedAt = now;
 
-  let processedAt;
-
-  if (status === 'pending') {
+  if (ttl === -1) {
     processedAt = null;
   }
 
