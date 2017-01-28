@@ -2034,7 +2034,7 @@ describe('Client', () => {
   });
 
   describe('registerActivity()', () => {
-    ['authyId', 'type', 'ip'].forEach(parameter => {
+    ['authyId', 'type'].forEach(parameter => {
       it(`should throw an error if \`${parameter}\` is missing`, async () => {
         try {
           await client.registerActivity();
@@ -2055,6 +2055,17 @@ describe('Client', () => {
       } catch (e) {
         e.should.be.instanceOf(ValidationFailedError);
         e.errors.authyId[0].show().assert.should.equal('AuthyId');
+      }
+    });
+
+    it('should throw an error if `data` is invalid', async () => {
+      try {
+        await client.registerActivity({ data: '' });
+
+        should.fail();
+      } catch (e) {
+        e.should.be.instanceOf(ValidationFailedError);
+        e.errors.data[0].show().assert.should.equal('PlainObject');
       }
     });
 

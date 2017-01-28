@@ -341,9 +341,9 @@ export default class Client {
 
       validate({ authyId, data, ip, type }, {
         authyId: [is.required(), is.authyId()],
-        data: [is.required(), is.plainObject()],
-        ip: [is.required(), is.Ip()],
-        type: [is.required(), is.Activity()]
+        data: is.plainObject(),
+        ip: is.ip(),
+        type: [is.required(), is.activity()]
       });
 
       return this.rpc.postAsync({
