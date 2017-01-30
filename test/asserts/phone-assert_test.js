@@ -6,12 +6,14 @@
 import Phone from '../../src/asserts/phone-assert';
 import should from 'should';
 import { Assert as BaseAssert, Violation } from 'validator.js';
+import { PhoneNumberFormat as PNF, PhoneNumberUtil } from 'google-libphonenumber';
 
 /**
  * Extend Assert with `PhoneAssert`.
  */
 
 const Assert = BaseAssert.extend({ Phone });
+const phoneUtil = PhoneNumberUtil.getInstance();
 
 /**
  * Test `PhoneAssert`.
@@ -68,47 +70,39 @@ describe('PhoneAssert', () => {
     [{
       countryOrCallingCode: 'AU',
       expectedCountryCode: 'US',
-      phone: '0011 1 408-550-3542'
+      phone: `0011 1 ${phoneUtil.format(phoneUtil.getExampleNumber('US'), PNF.NATIONAL)}`
     }, {
       countryOrCallingCode: 'PT',
       expectedCountryCode: 'MX',
-      phone: '+5215555123123'
+      phone: phoneUtil.format(phoneUtil.getExampleNumber('MX'), PNF.E164)
     }, {
       countryOrCallingCode: 'ES',
       expectedCountryCode: 'IT',
-      phone: '00 39 312 123 1234'
-    }, {
-      countryOrCallingCode: 'ES',
-      expectedCountryCode: 'IT',
-      phone: '+39 0187 1234(12)'
+      phone: phoneUtil.format(phoneUtil.getExampleNumber('IT'), PNF.E164).replace('+', '00')
     }, {
       countryOrCallingCode: 'CH',
       expectedCountryCode: 'US',
-      phone: '00 1 809 555 5555'
+      phone: `00 1 ${phoneUtil.format(phoneUtil.getExampleNumber('US'), PNF.NATIONAL)}`
     }, {
       countryOrCallingCode: 'PT',
       expectedCountryCode: 'DO',
-      phone: '+1 809 555 5555'
+      phone: phoneUtil.format(phoneUtil.getExampleNumber('DO'), PNF.E164)
     }, {
       countryOrCallingCode: 'GB',
       expectedCountryCode: 'IM',
-      phone: '07624123456'
+      phone: phoneUtil.format(phoneUtil.getExampleNumber('IM'), PNF.NATIONAL)
     }, {
       countryOrCallingCode: '1',
       expectedCountryCode: '351',
-      phone: '+351 912 345 679'
+      phone: phoneUtil.format(phoneUtil.getExampleNumber('PT'), PNF.E164)
+    }, {
+      countryOrCallingCode: '39',
+      expectedCountryCode: '41',
+      phone: phoneUtil.format(phoneUtil.getExampleNumber('CH'), PNF.E164)
     }, {
       countryOrCallingCode: '41',
-      expectedCountryCode: '41',
-      phone: '+1 408-550-3542'
-    }, {
-      countryOrCallingCode: '61',
       expectedCountryCode: '1',
-      phone: '00 1 408-550-3542'
-    }, {
-      countryOrCallingCode: '882',
-      expectedCountryCode: '882',
-      phone: '+88313300655'
+      phone: `00 1 ${phoneUtil.format(phoneUtil.getExampleNumber('US'), PNF.NATIONAL)}`
     }].forEach(({ countryOrCallingCode, phone, expectedCountryCode }) => {
       try {
         new Assert().Phone(countryOrCallingCode).validate(phone);
