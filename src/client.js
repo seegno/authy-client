@@ -139,11 +139,6 @@ export default class Client {
       })
       .bind(this)
       .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          message: [is.required(), is.equalTo('User was added to remove.')]
-        });
-      })
       .asCallback(callback);
     });
   }
