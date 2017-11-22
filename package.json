@@ -45,7 +45,7 @@
     "@uphold/request-logger": "^1.2.0",
     "bluebird": "^3.4.6",
     "debugnyan": "^1.0.0",
-    "google-libphonenumber": "^2.0.2",
+    "google-libphonenumber": "^3.0.10",
     "lodash": "^4.16.2",
     "prettyjson": "^1.2.1",
     "qs": "^6.2.1",
