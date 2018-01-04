@@ -4,11 +4,11 @@
  */
 
 import * as mocks from './mocks';
+import { AssertionFailedError, ValidationFailedError } from '../src/errors';
+import { resolution, verificationVia } from '../src/enums';
 import Client from '../src/client';
 import nock from 'nock';
 import should from 'should';
-import { AssertionFailedError, ValidationFailedError } from '../src/errors';
-import { resolution, verificationVia } from '../src/enums';
 
 /**
  * Disable any type net connection.
@@ -93,7 +93,7 @@ describe('Client', () => {
     it('should set default user-agent', () => {
       const testClient = new Client({ key: 'foo' });
 
-      testClient.defaults.headers['User-Agent'].should.match(/authy-client\/\d+\.\d+\.\d+\s\(https:\/\/github.com\/seegno\/authy-client\)/);
+      testClient.defaults.headers['User-Agent'].should.match(/authy-client\/\d+\.\d+\.\d+\s\(https:\/\/github.com\/ruimarinho\/authy-client\)/);
     });
   });
 

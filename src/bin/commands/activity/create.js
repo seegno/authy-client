@@ -3,9 +3,9 @@
  * Module dependencies.
  */
 
-import handle from '../../handler';
-import { isPlainObject } from 'lodash';
 import { Client, enums } from '../../../';
+import { isPlainObject } from 'lodash';
+import handle from '../../handler';
 
 /**
  * Export command definition.

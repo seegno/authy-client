@@ -3,11 +3,11 @@
  * Module dependencies.
  */
 
-import Logo from '../../src/asserts/logo-assert';
-import { resolution } from '../../src/enums';
-import should from 'should';
-import { values } from 'lodash';
 import { Assert as BaseAssert, Violation } from 'validator.js';
+import { resolution } from '../../src/enums';
+import { values } from 'lodash';
+import Logo from '../../src/asserts/logo-assert';
+import should from 'should';
 
 /**
  * Extend Assert with `Logo`.

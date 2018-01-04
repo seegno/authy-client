@@ -3,9 +3,9 @@
  * Module dependencies.
  */
 
+import { Assert as BaseAssert, Violation } from 'validator.js';
 import TotpToken from '../../src/asserts/totp-token-assert';
 import should from 'should';
-import { Assert as BaseAssert, Violation } from 'validator.js';
 
 /**
  * Extend Assert with `TotpToken`.

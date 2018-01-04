@@ -3,6 +3,7 @@
  * Module dependencies.
  */
 
+import { assert, Assert as is, validate } from './validator';
 import Promise from 'bluebird';
 import _ from 'lodash';
 import debugnyan from 'debugnyan';
@@ -11,7 +12,6 @@ import manifest from '../package';
 import parsePhone from './parsers/phone-parser';
 import parseResponse from './parsers/response-parser';
 import request from './logging/request';
-import { assert, Assert as is, validate } from './validator';
 
 /**
  * Instances.
@@ -103,16 +103,16 @@ export default class Client {
         },
         uri: esc`users/${authyId}/approval_requests`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          approval_request: {
-            uuid: [is.required(), is.string()]
-          }
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            approval_request: {
+              uuid: [is.required(), is.string()]
+            }
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -137,9 +137,9 @@ export default class Client {
         }, _.identity),
         uri: esc`users/${authyId}/delete`
       })
-      .bind(this)
-      .then(parseResponse)
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .asCallback(callback);
     });
   }
 
@@ -161,20 +161,20 @@ export default class Client {
         }, _.identity),
         uri: esc`app/details`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          app: {
-            app_id: [is.required(), is.integer()],
-            name: [is.required(), is.string()],
-            plan: [is.required(), is.string()],
-            sms_enabled: [is.required(), is.boolean()]
-          },
-          message: [is.required(), is.equalTo('Application information.')]
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            app: {
+              app_id: [is.required(), is.integer()],
+              name: [is.required(), is.string()],
+              plan: [is.required(), is.string()],
+              sms_enabled: [is.required(), is.boolean()]
+            },
+            message: [is.required(), is.equalTo('Application information.')]
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -191,28 +191,28 @@ export default class Client {
       });
 
       return this.onetouch.getAsync({ uri: esc`approval_requests/${id}` })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          approval_request: {
-            _app_name: [is.required(), is.string()],
-            _app_serial_id: [is.required(), is.integer()],
-            _authy_id: [is.required(), is.authyId()],
-            _id: [is.required(), is.string()],
-            _user_email: [is.required(), is.email()],
-            app_id: [is.required(), is.string()],
-            created_at: [is.required(), is.date()],
-            notified: [is.required(), is.boolean()],
-            processed_at: is.callback(value => is.null().check(value) === true || is.date().check(value) === true),
-            status: [is.required(), is.choice(['approved', 'denied', 'expired', 'pending'])],
-            updated_at: [is.required(), is.date()],
-            user_id: [is.required(), is.string()],
-            uuid: [is.required(), is.string()]
-          }
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            approval_request: {
+              _app_name: [is.required(), is.string()],
+              _app_serial_id: [is.required(), is.integer()],
+              _authy_id: [is.required(), is.authyId()],
+              _id: [is.required(), is.string()],
+              _user_email: [is.required(), is.email()],
+              app_id: [is.required(), is.string()],
+              created_at: [is.required(), is.date()],
+              notified: [is.required(), is.boolean()],
+              processed_at: is.callback(value => is.null().check(value) === true || is.date().check(value) === true),
+              status: [is.required(), is.choice(['approved', 'denied', 'expired', 'pending'])],
+              updated_at: [is.required(), is.date()],
+              user_id: [is.required(), is.string()],
+              uuid: [is.required(), is.string()]
+            }
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -234,18 +234,18 @@ export default class Client {
         }, _.identity),
         uri: esc`app/stats`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          app_id: [is.required(), is.integer()],
-          count: [is.required(), is.integer()],
-          message: [is.required(), is.equalTo('Monthly statistics.')],
-          stats: [is.required(), is.collection(is.equalKeys(['api_calls_count', 'auths_count', 'calls_count', 'month', 'sms_count', 'users_count', 'year']))],
-          total_users: [is.required(), is.integer()]
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            app_id: [is.required(), is.integer()],
+            count: [is.required(), is.integer()],
+            message: [is.required(), is.equalTo('Monthly statistics.')],
+            stats: [is.required(), is.collection(is.equalKeys(['api_calls_count', 'auths_count', 'calls_count', 'month', 'sms_count', 'users_count', 'year']))],
+            total_users: [is.required(), is.integer()]
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -269,17 +269,17 @@ export default class Client {
         },
         uri: esc`phones/info`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          message: [is.required(), is.regexp('Phone number information as of \\d+-\\d+-\\d+ \\d+:\\d+:\\d+ UTC')],
-          ported: [is.required(), is.boolean()],
-          provider: [is.required(), is.string()],
-          type: [is.required(), is.string()]
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            message: [is.required(), is.regexp('Phone number information as of \\d+-\\d+-\\d+ \\d+:\\d+:\\d+ UTC')],
+            ported: [is.required(), is.boolean()],
+            provider: [is.required(), is.string()],
+            type: [is.required(), is.string()]
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -304,23 +304,23 @@ export default class Client {
         }, _.identity),
         uri: esc`users/${authyId}/status`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          message: [is.required(), is.equalTo('User status.')],
-          status: {
-            authy_id: [is.required(), is.authyId()],
-            confirmed: [is.required(), is.boolean()],
-            country_code: [is.required(), is.countryOrCallingCode()],
-            devices: is.required(),
-            has_hard_token: [is.required(), is.boolean()],
-            phone_number: [is.required(), is.string()],
-            registered: [is.required(), is.boolean()]
-          }
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            message: [is.required(), is.equalTo('User status.')],
+            status: {
+              authy_id: [is.required(), is.authyId()],
+              confirmed: [is.required(), is.boolean()],
+              country_code: [is.required(), is.countryOrCallingCode()],
+              devices: is.required(),
+              has_hard_token: [is.required(), is.boolean()],
+              phone_number: [is.required(), is.string()],
+              registered: [is.required(), is.boolean()]
+            }
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -349,14 +349,14 @@ export default class Client {
         },
         uri: esc`users/${authyId}/register_activity`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          message: [is.required(), is.equalTo('Activity was created.')]
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            message: [is.required(), is.equalTo('Activity was created.')]
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -387,17 +387,17 @@ export default class Client {
         }),
         uri: esc`call/${authyId}`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          cellphone: [is.required(), is.string()],
-          device: is.nullOrString(),
-          ignored: is.boolean(),
-          message: [is.required(), is.string()]
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            cellphone: [is.required(), is.string()],
+            device: is.nullOrString(),
+            ignored: is.boolean(),
+            message: [is.required(), is.string()]
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -428,17 +428,17 @@ export default class Client {
         }),
         uri: esc`sms/${authyId}`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          cellphone: [is.required(), is.string()],
-          device: is.nullOrString(),
-          ignored: is.boolean(),
-          message: [is.required(), is.string()]
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            cellphone: [is.required(), is.string()],
+            device: is.nullOrString(),
+            ignored: is.boolean(),
+            message: [is.required(), is.string()]
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -471,17 +471,17 @@ export default class Client {
         },
         uri: esc`users/new`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          message: [is.required(), is.equalTo('User created successfully.')],
-          user: {
-            id: [is.required(), is.authyId()]
-          }
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            message: [is.required(), is.equalTo('User created successfully.')],
+            user: {
+              id: [is.required(), is.authyId()]
+            }
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -507,15 +507,15 @@ export default class Client {
         }),
         uri: esc`verify/${token}/${authyId}`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          message: [is.required(), is.equalTo('Token is valid.')],
-          token: [is.required(), is.equalTo('is valid')]
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            message: [is.required(), is.equalTo('Token is valid.')],
+            token: [is.required(), is.equalTo('is valid')]
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -545,17 +545,17 @@ export default class Client {
         }, _.identity),
         uri: esc`phones/verification/start`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          carrier: [is.required(), is.string()],
-          is_cellphone: [is.required(), is.boolean()],
-          is_ported: is.boolean(),
-          message: [is.required(), is.string()]
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            carrier: [is.required(), is.string()],
+            is_cellphone: [is.required(), is.boolean()],
+            is_ported: is.boolean(),
+            message: [is.required(), is.string()]
+          });
+        })
+        .asCallback(callback);
     });
   }
 
@@ -618,14 +618,14 @@ export default class Client {
         },
         uri: esc`phones/verification/check`
       })
-      .bind(this)
-      .then(parseResponse)
-      .tap(response => {
-        assert(response, {
-          message: [is.required(), is.equalTo('Verification code is correct.')]
-        });
-      })
-      .asCallback(callback);
+        .bind(this)
+        .then(parseResponse)
+        .tap(response => {
+          assert(response, {
+            message: [is.required(), is.equalTo('Verification code is correct.')]
+          });
+        })
+        .asCallback(callback);
     });
   }
 }

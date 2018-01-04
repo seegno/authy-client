@@ -3,9 +3,9 @@
  * Module dependencies.
  */
 
-import { locale } from '../enums';
 import { Validator, Violation, Assert as is } from 'validator.js';
 import { isString, values } from 'lodash';
+import { locale } from '../enums';
 
 /**
  * Locale choices.

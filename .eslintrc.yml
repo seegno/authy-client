@@ -1,4 +1,4 @@
-extends: seegno
+extends: uphold
 
 rules:
   id-length: 0

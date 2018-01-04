@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-import { isString } from 'lodash';
 import { Violation, Assert as is } from 'validator.js';
+import { isString } from 'lodash';
 
 /**
  * Instances.

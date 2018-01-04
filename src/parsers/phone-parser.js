@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-import debugnyan from 'debugnyan';
 import { PhoneNumberFormat as PNF, PhoneNumberUtil } from 'google-libphonenumber';
+import debugnyan from 'debugnyan';
 
 /**
  * Instances.

@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-import { activity } from '../enums';
 import { Validator, Violation, Assert as is } from 'validator.js';
+import { activity } from '../enums';
 import { isString, values } from 'lodash';
 
 /**

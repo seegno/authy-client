@@ -3,10 +3,10 @@
  * Module dependencies.
  */
 
-import Phone from '../../src/asserts/phone-assert';
-import should from 'should';
 import { Assert as BaseAssert, Violation } from 'validator.js';
 import { PhoneNumberFormat as PNF, PhoneNumberUtil } from 'google-libphonenumber';
+import Phone from '../../src/asserts/phone-assert';
+import should from 'should';
 
 /**
  * Extend Assert with `PhoneAssert`.

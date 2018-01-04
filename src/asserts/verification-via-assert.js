@@ -3,9 +3,9 @@
  * Module dependencies.
  */
 
-import { verificationVia } from '../enums';
 import { Validator, Violation, Assert as is } from 'validator.js';
 import { isString, values } from 'lodash';
+import { verificationVia } from '../enums';
 
 /**
  * Verification via choices.

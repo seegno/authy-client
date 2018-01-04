@@ -3,11 +3,11 @@
  * Module dependencies.
  */
 
-import VerificationVia from '../../src/asserts/verification-via-assert';
-import should from 'should';
+import { Assert as BaseAssert, Violation } from 'validator.js';
 import { values } from 'lodash';
 import { verificationVia } from '../../src/enums';
-import { Assert as BaseAssert, Violation } from 'validator.js';
+import VerificationVia from '../../src/asserts/verification-via-assert';
+import should from 'should';
 
 /**
  * Extend Assert with `VerificationVia`.

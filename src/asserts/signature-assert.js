@@ -33,6 +33,7 @@ export default function signatureAssert({ key, request } = {}) {
       return true;
     }
 
+    // eslint-disable-next-line prefer-destructuring
     const { body, headers: { 'x-authy-signature-nonce': nonce, host }, method, protocol, url: path } = this.request;
     const url = parse(`${protocol}://${host}${path}`, true);
 

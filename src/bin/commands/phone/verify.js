@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-import handle from '../../handler';
 import { Client, enums } from '../../../';
+import handle from '../../handler';
 
 /**
  * Export command definition.

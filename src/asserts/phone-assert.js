@@ -4,9 +4,9 @@
  */
 
 import { PhoneNumberUtil } from 'google-libphonenumber';
-import debugnyan from 'debugnyan';
-import { isString } from 'lodash';
 import { Validator, Violation } from 'validator.js';
+import { isString } from 'lodash';
+import debugnyan from 'debugnyan';
 
 /**
  * Instances.
@@ -46,7 +46,7 @@ export default function phoneAssert(countryOrCallingCode) {
     }
 
     let phone = value;
-    let countryCode = this.countryOrCallingCode;
+    let countryCode = this.countryOrCallingCode; // eslint-disable-line prefer-destructuring
     let countriesWithSameCallingCode = [];
 
     try {

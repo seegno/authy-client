@@ -3,9 +3,9 @@
  * Module dependencies.
  */
 
+import { Assert as BaseAssert, Violation } from 'validator.js';
 import PhoneVerificationToken from '../../src/asserts/phone-verification-token-assert';
 import should from 'should';
-import { Assert as BaseAssert, Violation } from 'validator.js';
 
 /**
  * Extend Assert with `PhoneVerificationToken`.

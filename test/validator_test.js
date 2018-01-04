@@ -4,9 +4,9 @@
  */
 
 import { Assert } from 'validator.js';
-import should from 'should';
 import { AssertionFailedError, ValidationFailedError } from '../src/errors';
 import { assert, validate } from '../src/validator';
+import should from 'should';
 
 /**
  * Test `Validator`.

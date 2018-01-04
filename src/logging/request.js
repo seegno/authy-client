@@ -3,9 +3,9 @@
  * Module dependencies.
  */
 
+import { obfuscate } from './request-obfuscator';
 import debugnyan from 'debugnyan';
 import logger from '@uphold/request-logger';
-import { obfuscate } from './request-obfuscator';
 import request from 'request';
 
 /**

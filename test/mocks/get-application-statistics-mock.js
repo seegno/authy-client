@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-import nock from 'nock';
 import { random, times } from 'lodash';
+import nock from 'nock';
 
 /**
  * List of month names.

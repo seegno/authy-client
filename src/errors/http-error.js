@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-import StandardError from './standard-error';
 import { get } from 'lodash';
+import StandardError from './standard-error';
 
 /**
  * Export `HttpError`.

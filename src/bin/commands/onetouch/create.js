@@ -4,8 +4,8 @@
  */
 
 import { Client } from '../../../';
-import handle from '../../handler';
 import { isPlainObject } from 'lodash';
+import handle from '../../handler';
 
 /**
  * Export command definition.

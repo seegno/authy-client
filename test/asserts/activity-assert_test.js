@@ -3,11 +3,11 @@
  * Module dependencies.
  */
 
-import Activity from '../../src/asserts/activity-assert';
-import { activity } from '../../src/enums';
-import should from 'should';
-import { values } from 'lodash';
 import { Assert as BaseAssert, Violation } from 'validator.js';
+import { activity } from '../../src/enums';
+import { values } from 'lodash';
+import Activity from '../../src/asserts/activity-assert';
+import should from 'should';
 
 /**
  * Extend Assert with `Activity`.

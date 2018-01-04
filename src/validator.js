@@ -4,11 +4,11 @@
  */
 
 import * as customAsserts from './asserts';
-import debugnyan from 'debugnyan';
-import extraAsserts from 'validator.js-asserts';
-import { merge } from 'lodash';
 import { AssertionFailedError, ValidationFailedError } from './errors';
 import { Assert as BaseAssert, Constraint, Validator } from 'validator.js';
+import { merge } from 'lodash';
+import debugnyan from 'debugnyan';
+import extraAsserts from 'validator.js-asserts';
 
 /**
  * Instances.

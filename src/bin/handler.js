@@ -8,7 +8,7 @@ import prettyjson from 'prettyjson';
 
 export default fn => {
   return argv => {
-    (async() => {
+    (async () => {
       let result;
 
       try {

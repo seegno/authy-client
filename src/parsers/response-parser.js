@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-import HttpError from '../errors/http-error';
 import { has } from 'lodash';
+import HttpError from '../errors/http-error';
 
 /**
  * Export `parse` function to parse a response from Authy API.

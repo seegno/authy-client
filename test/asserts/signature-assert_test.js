@@ -3,9 +3,9 @@
  * Module dependencies.
  */
 
+import { Assert as BaseAssert, Violation } from 'validator.js';
 import Signature from '../../src/asserts/signature-assert';
 import should from 'should';
-import { Assert as BaseAssert, Violation } from 'validator.js';
 
 /**
  * Extend Assert with `Logo`.

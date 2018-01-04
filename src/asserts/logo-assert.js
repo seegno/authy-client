@@ -4,9 +4,9 @@
  */
 
 import * as asserts from 'validator.js-asserts';
-import { resolution } from '../enums';
 import { Assert as BaseAssert, Violation } from 'validator.js';
 import { pick, values } from 'lodash';
+import { resolution } from '../enums';
 
 /**
  * Inject `Uri` and `EqualKeys` extra asserts.
