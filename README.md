@@ -1131,5 +1131,5 @@ MIT
 
 [npm-image]: https://img.shields.io/npm/v/authy-client.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/authy-client
-[travis-image]: https://img.shields.io/travis/seegno/authy-client.svg?style=flat-square
-[travis-url]: https://travis-ci.org/seegno/authy-client
+[travis-image]: https://img.shields.io/travis/ruimarinho/authy-client.svg?style=flat-square
+[travis-url]: https://travis-ci.org/ruimarinho/authy-client

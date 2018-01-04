@@ -15,18 +15,17 @@
     "two step",
     "two-factor"
   ],
-  "homepage": "https://github.com/seegno/authy-client",
-  "bugs": "https://github.com/seegno/authy-client/issues",
+  "homepage": "https://github.com/ruimarinho/authy-client",
+  "bugs": "https://github.com/ruimarinho/authy-client/issues",
   "license": "MIT",
   "author": {
     "name": "Rui Marinho",
-    "email": "rui.marinho@seegno.com",
-    "url": "http://seegno.com"
+    "url": "https://github.com/ruimarinho"
   },
   "main": "dist/src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/seegno/authy-client.git"
+    "url": "https://github.com/ruimarinho/authy-client.git"
   },
   "bin": {
     "authy": "dist/src/bin/cli.js"
