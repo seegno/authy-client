@@ -1792,34 +1792,6 @@ describe('Client', () => {
       }
     });
 
-    it('should throw an error if `response` is missing required fields', async () => {
-      nock(/authy/).post(/\//).reply(200, { success: true });
-
-      try {
-        await client.deleteUser({ authyId: 1635 });
-
-        should.fail();
-      } catch (e) {
-        e.should.be.instanceOf(AssertionFailedError);
-
-        e.errors.message.show().assert.should.equal('HaveProperty');
-      }
-    });
-
-    it('should throw an error if `response` contains invalid fields', async () => {
-      nock(/authy/).post(/\//).reply(200, { message: 'foo', success: true });
-
-      try {
-        await client.deleteUser({ authyId: 1635 });
-
-        should.fail();
-      } catch (e) {
-        e.should.be.instanceOf(AssertionFailedError);
-
-        e.errors.message[0].show().assert.should.equal('EqualTo');
-      }
-    });
-
     it('should accept the `ip` of the requester', async () => {
       mocks.deleteUser.succeed({ request: { body: { user_ip: '127.0.0.1' } } });
 
