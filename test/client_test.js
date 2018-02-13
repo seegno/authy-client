@@ -45,13 +45,12 @@ describe('Client', () => {
 
     it('should throw an error if `host` is invalid', () => {
       try {
-        new Client({ key: 'foo' }, { host: 'https://foo.bar' });
+        new Client({ key: 'foo' }, { host: 123 });
 
         should.fail();
       } catch (e) {
         e.should.be.instanceOf(ValidationFailedError);
-        e.errors.host[0].show().assert.should.equal('Choice');
-        e.errors.host[0].show().violation.choices.should.eql(['https://api.authy.com', 'https://sandbox-api.authy.com']);
+        e.errors.host[0].show().assert.should.equal('IsString');
       }
     });
 

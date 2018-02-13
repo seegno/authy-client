@@ -43,7 +43,7 @@ function source(...args) {
 export default class Client {
   constructor({ key } = {}, { host = 'https://api.authy.com', timeout = 5000 } = {}) {
     validate({ host, key, timeout }, {
-      host: [is.string(), is.choice(['https://api.authy.com', 'https://sandbox-api.authy.com'])],
+      host: is.string(),
       key: [is.required(), is.notBlank()],
       timeout: [is.integer(), is.greaterThanOrEqual(0)]
     });

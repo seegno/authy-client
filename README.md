@@ -121,7 +121,7 @@ Note that all calls must be authenticated using the API Key. However, if you pre
 1. `args` _(Object)_: the required arguments object.
 2. `args.key` _(string)_: The private API key obtained from the [Authy Dashboard](https://dashboard.authy.com/).
 3. `[options]` _(Object)_: The options object.
-4. `[options.host=https://api.authy.com]` _(string)_: The target endpoint (`https://api.authy.com` or `https://sandbox-api.authy.com`).
+4. `[options.host=https://api.authy.com]` _(string)_: The target API endpoint.
 5. `[options.timeout=5000]` _(number)_: The maximum request time, in milliseconds.
 
 ##### Example
