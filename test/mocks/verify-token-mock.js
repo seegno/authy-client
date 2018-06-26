@@ -18,6 +18,25 @@ function mock({ request = {}, response = {} }) {
 }
 
 /**
+ * Export a request that will `fail`.
+ */
+
+export function fail({ request } = {}) {
+  return mock({
+    request,
+    response: {
+      body: {
+        errors: {
+          token: 'is invalid'
+        },
+        success: false
+      },
+      code: 401
+    }
+  });
+}
+
+/**
  * Export a request that will `succeed`.
  */
 
