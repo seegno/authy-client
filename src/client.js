@@ -135,7 +135,7 @@ export default class Client {
         body: _.pickBy({
           user_ip: ip
         }, _.identity),
-        uri: esc`users/${authyId}/delete`
+        uri: esc`users/${authyId}/remove`
       })
         .bind(this)
         .then(parseResponse)

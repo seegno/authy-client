@@ -12,7 +12,7 @@ import nock from 'nock';
 function mock({ request = {}, response = {} }) {
   return nock(/\.authy\.com/)
     .filteringPath(path => path.replace(/\/[0-9]+\//, '/{authyId}/'))
-    .post('/protected/json/users/{authyId}/delete', request.body)
+    .post('/protected/json/users/{authyId}/remove', request.body)
     .reply(response.code, response.body);
 }
 
