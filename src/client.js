@@ -525,9 +525,10 @@ export default class Client {
 
   startPhoneVerification(...args) {
     return Promise.try(() => {
-      const [[{ countryCode: countryOrCallingCode, phone, via } = {}, { locale } = {}], callback] = source(...args);
+      const [[{ countryCode: countryOrCallingCode, phone, via } = {}, { codeLength, locale } = {}], callback] = source(...args);
 
-      validate({ countryCode: countryOrCallingCode, phone, via }, {
+      validate({ codeLength, countryCode: countryOrCallingCode, phone, via }, {
+        codeLength: [is.range(4, 10)],
         countryCode: [is.required(), is.countryOrCallingCode()],
         locale: is.locale(),
         phone: [is.required(), is.phone(countryOrCallingCode)],

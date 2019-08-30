@@ -164,6 +164,28 @@ describe('Client', () => {
       }
     });
 
+    it('should throw an error if `codeLength` is smaller than 4', async () => {
+      try {
+        await client.startPhoneVerification({ countryCode: 'US', locale: 'es', phone: '7754615609', via: verificationVia.SMS }, { codeLength: 3 });
+
+        should.fail();
+      } catch (e) {
+        e.should.be.instanceOf(ValidationFailedError);
+        e.errors.codeLength[0].show().assert.should.equal('Range');
+      }
+    });
+
+    it('should throw an error if `codeLength` is bigger than 10', async () => {
+      try {
+        await client.startPhoneVerification({ countryCode: 'US', locale: 'es', phone: '7754615609', via: verificationVia.SMS }, { codeLength: 11 });
+
+        should.fail();
+      } catch (e) {
+        e.should.be.instanceOf(ValidationFailedError);
+        e.errors.codeLength[0].show().assert.should.equal('Range');
+      }
+    });
+
     it('should throw an error if `response` is missing required fields', async () => {
       nock(/authy/).post(/\//).reply(200, { success: true });
 

@@ -606,6 +606,7 @@ Verify a phone number by sending it a verification code by SMS or call. Custom m
 4. `args.via` _(string)_: the mechanism used to send the verification code (`sms` or `call`).
 5. `[options]` _(Object)_: the options object.
 6. `[options.locale]` _(string)_: the locale of the message received by the user. If none is given, Authy will attempt to auto-detect it based on the country code passed, otherwise English will be used.
+6. `[options.codeLength]` _(integer)_: the number of verification digits sent (by default, 4). Allowed values are 4-10.
 7. `[callback]` _(Function)_: a callback, otherwise a Promise is returned.
 
 ##### Example
@@ -615,7 +616,7 @@ Verify a phone number by sending it a verification code by SMS or call. Custom m
 ```javascript
 import { enums } from 'authy-client';
 
-const response = await client.startPhoneVerification({ countryCode: 'US', locale: 'en', phone: '7754615609', via: enums.verificationVia.SMS });
+const response = await client.startPhoneVerification({ countryCode: 'US', phone: '7754615609', via: enums.verificationVia.SMS });
 
 console.log('Phone information', response);
 ```
@@ -625,7 +626,7 @@ console.log('Phone information', response);
 ```javascript
 const enums = require('authy-client').enums;
 
-client.startPhoneVerification({ countryCode: 'US', locale: 'en', phone: '7754615609', via: enums.verificationVia.SMS })
+client.startPhoneVerification({ countryCode: 'US', phone: '7754615609', via: enums.verificationVia.SMS })
   .then(function(response) {
     console.log('Phone information', response);
   })
