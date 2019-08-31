@@ -48,7 +48,7 @@ describe('PhoneParser', () => {
     });
 
     it('should support a phone in the national format', () => {
-      parse({ countryOrCallingCode: 'MX', phone: '044 55 1502-5000' }).should.eql({ countryCallingCode: 52, phone: '15515025000' });
+      parse({ countryOrCallingCode: 'MX', phone: '044 55 1502-5000' }).should.eql({ countryCallingCode: 52, phone: '5515025000' });
     });
 
     it('should support a phone with a numeric `countryOrCallingCode` which includes a NANPA area code', () => {
